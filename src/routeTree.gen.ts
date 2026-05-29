@@ -10,18 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as ExamRouteImport } from './routes/exam'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ExamExamIdRouteImport } from './routes/exam.$examId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExamRoute = ExamRouteImport.update({
-  id: '/exam',
-  path: '/exam',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -34,39 +29,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExamExamIdRoute = ExamExamIdRouteImport.update({
+  id: '/exam/$examId',
+  path: '/exam/$examId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
-  '/exam': typeof ExamRoute
   '/login': typeof LoginRoute
+  '/exam/$examId': typeof ExamExamIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
-  '/exam': typeof ExamRoute
   '/login': typeof LoginRoute
+  '/exam/$examId': typeof ExamExamIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
-  '/exam': typeof ExamRoute
   '/login': typeof LoginRoute
+  '/exam/$examId': typeof ExamExamIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/exam' | '/login'
+  fullPaths: '/' | '/dashboard' | '/login' | '/exam/$examId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/exam' | '/login'
-  id: '__root__' | '/' | '/dashboard' | '/exam' | '/login'
+  to: '/' | '/dashboard' | '/login' | '/exam/$examId'
+  id: '__root__' | '/' | '/dashboard' | '/login' | '/exam/$examId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
-  ExamRoute: typeof ExamRoute
   LoginRoute: typeof LoginRoute
+  ExamExamIdRoute: typeof ExamExamIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,13 +76,6 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/exam': {
-      id: '/exam'
-      path: '/exam'
-      fullPath: '/exam'
-      preLoaderRoute: typeof ExamRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -99,14 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/exam/$examId': {
+      id: '/exam/$examId'
+      path: '/exam/$examId'
+      fullPath: '/exam/$examId'
+      preLoaderRoute: typeof ExamExamIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
-  ExamRoute: ExamRoute,
   LoginRoute: LoginRoute,
+  ExamExamIdRoute: ExamExamIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
