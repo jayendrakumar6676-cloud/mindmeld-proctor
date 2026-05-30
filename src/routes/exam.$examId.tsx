@@ -189,16 +189,14 @@ function ExamPage() {
         videoRef.current.muted = true;
         await videoRef.current.play().catch(() => {});
       }
-      setPhase("instructions");
+      try { await containerRef.current?.requestFullscreen?.(); } catch { /* ignore */ }
+      setPhase("running");
     } catch {
       setPermError("Camera & microphone access is required to take this exam. Please allow access and retry.");
     }
   };
 
-  const startExam = async () => {
-    try { await containerRef.current?.requestFullscreen?.(); } catch { /* ignore */ }
-    setPhase("running");
-  };
+  const proceedToPermissions = () => setPhase("permissions");
 
   const mmss = useMemo(() => {
     const m = Math.floor(timeLeft / 60).toString().padStart(2, "0");
