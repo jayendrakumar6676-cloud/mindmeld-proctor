@@ -264,7 +264,7 @@ function ExamPage() {
                 onClick={requestPermissions}
                 className="h-11 w-full bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95"
               >
-                Allow Camera & Microphone
+                Allow Camera & Microphone — Start Exam
               </Button>
               <Link to="/dashboard">
                 <Button variant="ghost" className="mt-3 w-full">Cancel</Button>
