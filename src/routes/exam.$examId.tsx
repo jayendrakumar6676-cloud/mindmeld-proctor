@@ -398,9 +398,9 @@ function ExamPage() {
                   >
                     ← Previous
                   </Button>
-                  {current < exam.questions.length - 1 ? (
+                  {current < questions.length - 1 ? (
                     <Button
-                      onClick={() => setCurrent((c) => Math.min(exam.questions.length - 1, c + 1))}
+                      onClick={() => setCurrent((c) => Math.min(questions.length - 1, c + 1))}
                       className="bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95"
                     >
                       Next →
