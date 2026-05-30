@@ -275,32 +275,62 @@ function ExamPage() {
       )}
 
       {phase === "instructions" && (
-        <div className="grid min-h-screen place-items-center px-4">
-          <Card className="max-w-lg w-full glass shadow-brand">
+        <div className="grid min-h-screen place-items-center px-4 py-10">
+          <Card className="max-w-2xl w-full glass shadow-brand">
             <CardContent className="p-8">
               <div className="text-center">
                 <Logo className="mx-auto h-12" />
                 <h1 className="mt-6 text-2xl font-bold">
-                  <span className="text-brand-gradient">Proctored Exam Instructions</span>
+                  <span className="text-brand-gradient">{exam.title} — Instructions</span>
                 </h1>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Please read the rules carefully before you proceed.
+                </p>
               </div>
-              <div className="mx-auto my-5 w-fit overflow-hidden rounded-xl border-2 border-[var(--brand-blue)] shadow-brand">
-                <video ref={videoRef} className="h-36 w-48 object-cover bg-black" playsInline autoPlay muted />
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-xl border border-border bg-card/60 p-4">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Total Questions</div>
+                  <div className="mt-1 text-2xl font-bold text-brand-gradient">{questions.length}</div>
+                </div>
+                <div className="rounded-xl border border-border bg-card/60 p-4">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Duration</div>
+                  <div className="mt-1 text-2xl font-bold text-brand-gradient">{exam.durationMin} min</div>
+                </div>
+                <div className="rounded-xl border border-border bg-card/60 p-4">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Marks per Question</div>
+                  <div className="mt-1 text-2xl font-bold text-brand-gradient">+{exam.marksPerQuestion}</div>
+                </div>
+                <div className="rounded-xl border border-border bg-card/60 p-4">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Negative Marking</div>
+                  <div className="mt-1 text-2xl font-bold text-destructive">
+                    −{(exam.marksPerQuestion * exam.negativeMarkFraction).toFixed(2)}
+                  </div>
+                  <div className="text-[11px] text-muted-foreground">(1/4 of question marks per wrong answer)</div>
+                </div>
               </div>
-              <ul className="space-y-2 text-left text-sm text-muted-foreground">
-                <li>• Duration: <strong className="text-foreground">{exam.durationMin} minutes</strong> · {exam.questions.length} questions.</li>
-                <li>• Runs in <strong className="text-foreground">fullscreen</strong>. Exiting counts as a violation.</li>
-                <li>• Tab switching, copy/paste, right-click and DevTools are blocked.</li>
-                <li>• Camera & microphone must stay ON for the entire exam.</li>
+
+              <ul className="mt-6 space-y-2 text-left text-sm text-muted-foreground">
+                <li>• Each question has <strong className="text-foreground">4 options</strong>; only one is correct.</li>
+                <li>• <strong className="text-foreground">+{exam.marksPerQuestion}</strong> for correct, <strong className="text-destructive">−{(exam.marksPerQuestion * exam.negativeMarkFraction).toFixed(2)}</strong> for wrong, 0 for unattempted.</li>
+                <li>• Questions and options are <strong className="text-foreground">shuffled</strong> for every candidate.</li>
+                <li>• Runs in <strong className="text-foreground">fullscreen</strong>. Tab-switching, copy/paste, right-click and DevTools are blocked.</li>
+                <li>• <strong className="text-foreground">Camera & microphone</strong> must stay ON for the entire exam.</li>
                 <li>• After <strong className="text-foreground">{MAX_VIOLATIONS} violations</strong>, the exam auto-submits.</li>
-                <li>• Each exam can be taken <strong className="text-foreground">only once</strong>.</li>
+                <li>• Each exam can be taken <strong className="text-foreground">only once</strong>. Results are not shown here.</li>
               </ul>
-              <Button
-                onClick={startExam}
-                className="mt-6 h-11 w-full bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95 hover:shadow-brand"
-              >
-                I understand — Start Exam
-              </Button>
+
+              <div className="mt-6 flex gap-3">
+                <Link to="/dashboard" className="flex-1">
+                  <Button variant="outline" className="w-full">Cancel</Button>
+                </Link>
+                <Button
+                  onClick={proceedToPermissions}
+                  className="flex-1 h-11 bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95 hover:shadow-brand"
+                >
+                  I understand — Continue
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
