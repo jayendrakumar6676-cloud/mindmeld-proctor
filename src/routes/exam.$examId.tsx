@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { getExam } from "@/lib/exams";
+import { getExam, prepareExam, type Question } from "@/lib/exams";
 import { hasAttempted, recordAttempt } from "@/lib/exam-attempts";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
