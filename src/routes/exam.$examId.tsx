@@ -184,17 +184,26 @@ function ExamPage() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.muted = true;
-        await videoRef.current.play().catch(() => {});
-      }
       try { await containerRef.current?.requestFullscreen?.(); } catch { /* ignore */ }
       setPhase("running");
     } catch {
       setPermError("Camera & microphone access is required to take this exam. Please allow access and retry.");
     }
   };
+
+  // Attach stream to <video> AFTER it mounts in running phase (fixes black preview)
+  useEffect(() => {
+    if (phase !== "running") return;
+    const v = videoRef.current;
+    const s = streamRef.current;
+    if (!v || !s) return;
+    v.srcObject = s;
+    v.muted = true;
+    v.playsInline = true;
+    const tryPlay = () => v.play().catch(() => {});
+    tryPlay();
+    v.onloadedmetadata = tryPlay;
+  }, [phase]);
 
   const proceedToPermissions = () => setPhase("permissions");
 
