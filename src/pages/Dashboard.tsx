@@ -1,5 +1,5 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -7,26 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { EXAMS } from "@/lib/exams";
 import { getAttempts } from "@/lib/exam-attempts";
 
-export const Route = createFileRoute("/dashboard")({
-  head: () => ({
-    meta: [
-      { title: "Dashboard | XPay Exam Portal" },
-      { name: "description", content: "Candidate dashboard for XPay assessments." },
-    ],
-  }),
-  component: Dashboard,
-});
+interface Candidate { name?: string; email: string; loginAt: number }
 
-interface Candidate { email: string; loginAt: number }
-
-function Dashboard() {
+export default function Dashboard() {
   const navigate = useNavigate();
   const [candidate, setCandidate] = useState<Candidate | null>(null);
   const [attemptedIds, setAttemptedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const raw = sessionStorage.getItem("xpay-candidate");
-    if (!raw) { navigate({ to: "/login" }); return; }
+    if (!raw) { navigate("/login"); return; }
     const c: Candidate = JSON.parse(raw);
     setCandidate(c);
     setAttemptedIds(new Set(getAttempts(c.email).map((a) => a.examId)));
@@ -34,7 +24,7 @@ function Dashboard() {
 
   const logout = () => {
     sessionStorage.removeItem("xpay-candidate");
-    navigate({ to: "/login" });
+    navigate("/login");
   };
 
   if (!candidate) return null;
@@ -45,7 +35,9 @@ function Dashboard() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Logo className="h-9" />
           <div className="flex items-center gap-3">
-            <span className="hidden text-sm text-muted-foreground sm:inline">{candidate.email}</span>
+            <span className="hidden text-sm text-muted-foreground sm:inline">
+              {candidate.name ? `${candidate.name} · ` : ""}{candidate.email}
+            </span>
             <Link to="/submissions"><Button variant="ghost" size="sm">Invigilator</Button></Link>
             <Button variant="outline" size="sm" onClick={logout}>Logout</Button>
           </div>
@@ -70,17 +62,14 @@ function Dashboard() {
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {EXAMS.map((exam) => {
             const done = attemptedIds.has(exam.id);
+            const target = exam.id === "coding" ? `/coding/${exam.id}` : `/exam/${exam.id}`;
             return (
               <Card key={exam.id} className={`relative overflow-hidden transition-smooth ${done ? "opacity-70" : "hover:shadow-brand hover:-translate-y-1"}`}>
                 <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${exam.accent}`} />
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="text-3xl">{exam.icon}</div>
-                    {done ? (
-                      <Badge variant="secondary">Attempted</Badge>
-                    ) : (
-                      <Badge className="bg-brand-gradient text-white border-0">Available</Badge>
-                    )}
+                    {done ? <Badge variant="secondary">Attempted</Badge> : <Badge className="bg-brand-gradient text-white border-0">Available</Badge>}
                   </div>
                   <CardTitle className="mt-3 text-lg">{exam.title}</CardTitle>
                   <CardDescription>{exam.description}</CardDescription>
@@ -90,17 +79,9 @@ function Dashboard() {
                     {exam.questions.length} questions · {exam.durationMin} min · Proctored
                   </p>
                   {done ? (
-                    <Button disabled className="w-full" variant="secondary">
-                      Already submitted
-                    </Button>
-                  ) : exam.id === "coding" ? (
-                    <Link to="/coding/$examId" params={{ examId: exam.id }}>
-                      <Button className="w-full bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95">
-                        Start →
-                      </Button>
-                    </Link>
+                    <Button disabled className="w-full" variant="secondary">Already submitted</Button>
                   ) : (
-                    <Link to="/exam/$examId" params={{ examId: exam.id }}>
+                    <Link to={target}>
                       <Button className="w-full bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95">
                         Start →
                       </Button>
