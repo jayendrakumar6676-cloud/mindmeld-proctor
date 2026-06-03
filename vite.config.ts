@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-// Frontend on :5173, proxies /api/* to local Express on :8787
+// Frontend on :8080, proxies /api/* to local Express on :8787
 export default defineConfig({
   plugins: [react(), tailwindcss(), tsconfigPaths()],
   server: {
