@@ -1,41 +1,76 @@
-# XPay Exam Portal — local setup
+# XPay Exam Portal — Windows/local setup
 
 A self-contained proctored exam app. Submissions are saved as JSON files on
-**your laptop** in `./submissions/`.
+**your laptop** in `submissions/`.
 
-## Stack
+## What this project runs
 
 - Frontend: Vite + React 18 + React Router + Tailwind + shadcn/ui
-- Backend: a tiny Express server (`server/index.js`) that writes submission
-  files to `./submissions/<examId>/<email>__<timestamp>.json`
-- One command (`npm run dev`) runs both via `concurrently`
+- Local storage server: Express (`server/index.js`)
+- Student submissions are written to `submissions/<examId>/<email>__<timestamp>.json`
+- One command starts everything: `npm run dev`
 
-## Prerequisites
+## First-time setup on Windows
 
-- **Node.js 20 or newer** — https://nodejs.org
-- Verify in a terminal: `node -v`
-
-## Run it (step by step)
-
-1. Open this folder in VS Code.
-2. Open the integrated terminal (`Ctrl+\`` / `Cmd+\``).
-3. First time only — install dependencies:
+1. Install **Node.js 20 LTS or newer** from https://nodejs.org/
+2. Download/export the latest project ZIP.
+3. Extract it to a simple folder, for example:
+   ```
+   C:\XPayExamPortal
+   ```
+   Avoid folders like `mindmeld-proctor-main(1)` because repeated ZIP copies can confuse you.
+4. Open that folder in VS Code.
+5. Open VS Code terminal with `Ctrl + backtick`.
+6. Run:
    ```
    npm install
-   ```
-4. Start the app:
-   ```
+   npm run doctor
    npm run dev
    ```
-   This boots:
-   - Frontend on http://localhost:5173
-   - Submissions API on http://localhost:8787
-5. Open http://localhost:5173 in Chrome. Sign in, pick an exam folder, take it.
-6. After submit, look in the project's `submissions/` folder — every attempt
-   is saved as a JSON file you can open or share.
-7. Invigilator dashboard: http://localhost:5173/submissions → PIN `xpay-2026`.
-   You can also click **Download JSON** to save any attempt.
-8. Stop the servers with `Ctrl+C` in the terminal.
+7. Open Chrome at:
+   ```
+   http://localhost:8080
+   ```
+
+## Easiest Windows start
+
+Double-click:
+
+```
+start-windows.bat
+```
+
+It checks Node.js, installs dependencies if needed, verifies the setup, and starts the app.
+
+## Important local URLs
+
+- Student login: http://localhost:8080
+- Invigilator dashboard: http://localhost:8080/submissions
+- Local API health check: http://localhost:8080/api/health
+- Invigilator PIN: `xpay-2026`
+
+Keep the terminal window open while exams are running.
+
+## If you see “Missing script: dev”
+
+You are running commands in the wrong/old folder. Fix it like this:
+
+1. Delete the old extracted folder.
+2. Download/export the latest ZIP again.
+3. Extract it once to `C:\XPayExamPortal`.
+4. Open `C:\XPayExamPortal` in VS Code.
+5. Run:
+   ```
+   npm install
+   npm run doctor
+   npm run dev
+   ```
+
+To confirm you are in the correct folder, this command must show `dev`, `doctor`, `build`, and `start`:
+
+```
+npm run
+```
 
 ## Multiple students on different laptops (same Wi-Fi)
 
@@ -43,13 +78,13 @@ The dev server already binds to `0.0.0.0`. Find your laptop's LAN IP
 (e.g. `192.168.1.42`) and have students open:
 
 ```
-http://192.168.1.42:5173
+http://192.168.1.42:8080
 ```
 
 Every submission from any device gets written to **your laptop's** `submissions/` folder.
 
 Note: webcam/mic require either `localhost` or HTTPS. Over LAN with plain
-`http://<ip>:5173` Chrome will block camera. The simplest fix is to have
+`http://<ip>:8080` Chrome will block camera. The simplest fix is to have
 students use the same laptop, or set up HTTPS with `mkcert` (advanced).
 
 ## Where data lives
@@ -82,6 +117,9 @@ Edit `INVIGILATOR_PIN` in `src/pages/Submissions.tsx`.
 ## Production build
 
 ```
+npm install
 npm run build
 npm run start    # serves the build + runs the API
 ```
+
+For normal exam use, prefer `npm run dev` or `start-windows.bat`.
