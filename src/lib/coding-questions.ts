@@ -105,6 +105,56 @@ export const CODING_QUESTIONS: CodingQuestion[] = [
       { stdin: "15", expected: "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz", hidden: true },
     ],
   },
+  {
+    id: "read4-ii",
+    title: "Read N Characters Given read4 II — Call Multiple Times",
+    difficulty: "Hard",
+    marks: 10,
+    prompt:
+`Given a file and assuming you can only read the file using a given method read4, implement a method read to read n characters. Your method read may be called multiple times.
+
+Method read4: The API read4 reads exactly 4 consecutive characters from the file, then writes those characters into the buffer buf4. The return value is the number of actual characters read.
+(read4 has its own internal file pointer, much like FILE *fp in C.)
+
+Method read: Using read4, implement read(buf, n) that reads n characters from the file and stores them in buf. The return value is the number of actual characters read.
+
+You cannot manipulate the file directly. The file is only accessible via read4. The read function may be called multiple times.
+
+------------------------------------------------------------
+INPUT / OUTPUT PROTOCOL FOR THIS JUDGE
+------------------------------------------------------------
+Line 1: the file contents (a single string, no spaces).
+Line 2: an integer Q — number of read() calls.
+Line 3: Q space-separated integers — the n value for each successive call.
+
+Print Q space-separated integers on a single line: the actual count returned by each successive read() call (i.e. how many characters were written into buf).`,
+    inputFormat:
+`Line 1: file string (no spaces)
+Line 2: integer Q
+Line 3: Q space-separated integers (queries)`,
+    outputFormat: "A single line with Q space-separated integers — the value returned by each read() call.",
+    constraints: [
+      "1 ≤ |file| ≤ 500",
+      "file consists of English letters and digits",
+      "1 ≤ n ≤ 1000",
+      "1 ≤ Q ≤ 100",
+      "Successive read() calls share state (leftover characters from read4).",
+    ],
+    sample: [
+      { input: "abc\n3\n1 2 1", output: "1 2 0",
+        explanation: "read(1) -> 'a' (1). read(2) -> 'bc' (2). read(1) -> EOF (0)." },
+      { input: "abc\n2\n4 1", output: "3 0",
+        explanation: "read(4) -> 'abc' (3). read(1) -> EOF (0)." },
+    ],
+    testCases: [
+      { stdin: "abc\n3\n1 2 1",          expected: "1 2 0",     hidden: false },
+      { stdin: "abc\n2\n4 1",            expected: "3 0",       hidden: false },
+      { stdin: "abcde\n3\n2 2 2",        expected: "2 2 1",     hidden: true  },
+      { stdin: "abcdefgh\n4\n3 3 3 3",   expected: "3 3 2 0",   hidden: true  },
+      { stdin: "a\n2\n1 5",              expected: "1 0",       hidden: true  },
+      { stdin: "abcdefghij\n1\n1000",    expected: "10",        hidden: true  },
+    ],
+  },
 ];
 
 export const getCodingQuestion = (id: string) =>
