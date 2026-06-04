@@ -208,6 +208,9 @@ export default function Exam() {
 
   useEffect(() => {
     if (phase !== "running") return;
+    examStartRef.current = Date.now();
+    focusStartRef.current = Date.now();
+    startedAtRef.current = Date.now();
     const v = videoRef.current, s = streamRef.current;
     if (!v || !s) return;
     v.srcObject = s; v.muted = true; v.playsInline = true;
