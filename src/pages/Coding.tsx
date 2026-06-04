@@ -85,12 +85,44 @@ export default function Coding() {
   const setCode = (code: string) => {
     if (!q) return;
     setState((s) => ({ ...s, [q.id]: { ...s[q.id], code } }));
+    setEditsPerQuestion((m) => ({ ...m, [q.id]: (m[q.id] ?? 0) + 1 }));
   };
+
+  // Accumulate time spent on a given question id, then reset focus marker
+  const accumulateTime = useCallback((qid: string) => {
+    const now = Date.now();
+    const delta = now - focusStartRef.current;
+    focusStartRef.current = now;
+    if (delta > 0 && delta < 1000 * 60 * 30) {
+      setTimePerQuestion((m) => ({ ...m, [qid]: (m[qid] ?? 0) + delta }));
+    }
+  }, []);
+
+  const gotoQuestion = useCallback(
+    (idx: number) => {
+      if (q) accumulateTime(q.id);
+      setCurrent(idx);
+    },
+    [accumulateTime, q],
+  );
 
   const submit = useCallback(async () => {
     if (finishedRef.current) return;
     finishedRef.current = true;
     setSubmitting(true);
+    // Final accumulate
+    if (q) {
+      const now = Date.now();
+      const delta = now - focusStartRef.current;
+      if (delta > 0 && delta < 1000 * 60 * 30) {
+        setTimePerQuestion((m) => ({ ...m, [q.id]: (m[q.id] ?? 0) + delta }));
+      }
+    }
+    const tpqSnap: Record<string, number> = { ...timePerQuestion };
+    if (q) {
+      const delta = Date.now() - focusStartRef.current;
+      if (delta > 0 && delta < 1000 * 60 * 30) tpqSnap[q.id] = (tpqSnap[q.id] ?? 0) + delta;
+    }
     const results: QuestionResult[] = [];
     let totalMarks = 0, totalPossible = 0;
     for (const qq of questions) {
@@ -107,12 +139,17 @@ export default function Coding() {
       totalMarks += earned; totalPossible += qq.marks;
       results.push({ questionId: qq.id, language: st.language, code: st.code, passed, total: qq.testCases.length, marksEarned: earned, perCase });
     }
+    const durationMs = Date.now() - examStartRef.current;
+    const accuracy = totalPossible > 0 ? totalMarks / totalPossible : 0;
     if (candidate) {
       saveCodingSubmission(candidate.email, { examId, submittedAt: Date.now(), violations, results, totalMarks, totalPossible });
       void postSubmission({
         kind: "coding",
         examId, candidateEmail: candidate.email, candidateName: candidate.name,
         submittedAt: Date.now(), violations, results, totalMarks, totalPossible,
+        accuracy, durationMs,
+        timePerQuestion: tpqSnap,
+        codeEditsPerQuestion: editsPerQuestion,
       });
     }
     streamRef.current?.getTracks().forEach((t) => t.stop());
@@ -120,7 +157,7 @@ export default function Coding() {
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     setSubmitting(false);
     setPhase("submitted");
-  }, [questions, state, candidate, examId, violations]);
+  }, [questions, state, candidate, examId, violations, q, timePerQuestion, editsPerQuestion]);
 
   const flagViolation = useCallback((reason: string) => {
     setViolations((v) => {
