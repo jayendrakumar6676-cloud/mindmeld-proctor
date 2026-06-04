@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import Editor from "react-simple-code-editor";
+import Prism from "prismjs";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-javascript";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +19,13 @@ import {
 import { runOnce } from "@/lib/code-runner";
 import { hasCodingSubmission, saveCodingSubmission, type QuestionResult } from "@/lib/coding-submissions";
 import { postSubmission } from "@/lib/api";
+
+const PRISM_LANG: Record<LanguageId, string> = {
+  python: "python", javascript: "javascript", java: "java", cpp: "cpp", c: "c",
+};
+const langLabel: Record<LanguageId, string> = {
+  python: "main.py", javascript: "main.js", java: "Main.java", cpp: "main.cpp", c: "main.c",
+};
 
 const MAX_VIOLATIONS = 3;
 const DURATION_MIN = 60;
@@ -40,6 +55,10 @@ export default function Coding() {
   const [running, setRunning] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [permError, setPermError] = useState<string | null>(null);
+  const [timePerQuestion, setTimePerQuestion] = useState<Record<string, number>>({});
+  const [editsPerQuestion, setEditsPerQuestion] = useState<Record<string, number>>({});
+  const focusStartRef = useRef<number>(Date.now());
+  const examStartRef = useRef<number>(Date.now());
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -66,12 +85,44 @@ export default function Coding() {
   const setCode = (code: string) => {
     if (!q) return;
     setState((s) => ({ ...s, [q.id]: { ...s[q.id], code } }));
+    setEditsPerQuestion((m) => ({ ...m, [q.id]: (m[q.id] ?? 0) + 1 }));
   };
+
+  // Accumulate time spent on a given question id, then reset focus marker
+  const accumulateTime = useCallback((qid: string) => {
+    const now = Date.now();
+    const delta = now - focusStartRef.current;
+    focusStartRef.current = now;
+    if (delta > 0 && delta < 1000 * 60 * 30) {
+      setTimePerQuestion((m) => ({ ...m, [qid]: (m[qid] ?? 0) + delta }));
+    }
+  }, []);
+
+  const gotoQuestion = useCallback(
+    (idx: number) => {
+      if (q) accumulateTime(q.id);
+      setCurrent(idx);
+    },
+    [accumulateTime, q],
+  );
 
   const submit = useCallback(async () => {
     if (finishedRef.current) return;
     finishedRef.current = true;
     setSubmitting(true);
+    // Final accumulate
+    if (q) {
+      const now = Date.now();
+      const delta = now - focusStartRef.current;
+      if (delta > 0 && delta < 1000 * 60 * 30) {
+        setTimePerQuestion((m) => ({ ...m, [q.id]: (m[q.id] ?? 0) + delta }));
+      }
+    }
+    const tpqSnap: Record<string, number> = { ...timePerQuestion };
+    if (q) {
+      const delta = Date.now() - focusStartRef.current;
+      if (delta > 0 && delta < 1000 * 60 * 30) tpqSnap[q.id] = (tpqSnap[q.id] ?? 0) + delta;
+    }
     const results: QuestionResult[] = [];
     let totalMarks = 0, totalPossible = 0;
     for (const qq of questions) {
@@ -88,12 +139,17 @@ export default function Coding() {
       totalMarks += earned; totalPossible += qq.marks;
       results.push({ questionId: qq.id, language: st.language, code: st.code, passed, total: qq.testCases.length, marksEarned: earned, perCase });
     }
+    const durationMs = Date.now() - examStartRef.current;
+    const accuracy = totalPossible > 0 ? totalMarks / totalPossible : 0;
     if (candidate) {
       saveCodingSubmission(candidate.email, { examId, submittedAt: Date.now(), violations, results, totalMarks, totalPossible });
       void postSubmission({
         kind: "coding",
         examId, candidateEmail: candidate.email, candidateName: candidate.name,
         submittedAt: Date.now(), violations, results, totalMarks, totalPossible,
+        accuracy, durationMs,
+        timePerQuestion: tpqSnap,
+        codeEditsPerQuestion: editsPerQuestion,
       });
     }
     streamRef.current?.getTracks().forEach((t) => t.stop());
@@ -101,7 +157,7 @@ export default function Coding() {
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     setSubmitting(false);
     setPhase("submitted");
-  }, [questions, state, candidate, examId, violations]);
+  }, [questions, state, candidate, examId, violations, q, timePerQuestion, editsPerQuestion]);
 
   const flagViolation = useCallback((reason: string) => {
     setViolations((v) => {
@@ -166,6 +222,8 @@ export default function Coding() {
 
   useEffect(() => {
     if (phase !== "running") return;
+    examStartRef.current = Date.now();
+    focusStartRef.current = Date.now();
     const v = videoRef.current, s = streamRef.current;
     if (!v || !s) return;
     v.srcObject = s; v.muted = true; v.playsInline = true;
@@ -277,7 +335,7 @@ export default function Coding() {
 
           <div className="mb-3 flex gap-2 overflow-x-auto">
             {questions.map((qq, i) => (
-              <button key={qq.id} onClick={() => setCurrent(i)}
+              <button key={qq.id} onClick={() => gotoQuestion(i)}
                 className={`shrink-0 rounded-lg px-4 py-2 text-sm font-semibold transition-smooth ${
                   i === current ? "bg-brand-gradient text-white shadow-brand" : "bg-muted text-muted-foreground hover:bg-accent"
                 }`}>
@@ -311,22 +369,67 @@ export default function Coding() {
 
             <Card className="shadow-brand">
               <CardContent className="p-4 flex flex-col gap-3 max-h-[75vh]">
-                <div className="flex items-center justify-between gap-2">
-                  <select value={cur.language} onChange={(e) => setLanguage(e.target.value as LanguageId)}
-                    className="rounded-md border border-border bg-card px-3 py-2 text-sm font-medium">
-                    {SUPPORTED_LANGUAGES.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
-                  </select>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <select value={cur.language} onChange={(e) => setLanguage(e.target.value as LanguageId)}
+                      className="rounded-md border border-border bg-card px-3 py-2 text-sm font-medium">
+                      {SUPPORTED_LANGUAGES.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
+                    </select>
+                    <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-600">
+                      ⏱ {(((timePerQuestion[q.id] ?? 0) + (Date.now() - focusStartRef.current)) / 1000).toFixed(0)}s on this Q
+                    </span>
+                    <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-medium text-blue-600">
+                      ✎ {editsPerQuestion[q.id] ?? 0} edits
+                    </span>
+                  </div>
                   <Button size="sm" variant="outline" onClick={runSampleTests} disabled={running}>
                     {running ? "Running…" : "▶ Run Sample Tests"}
                   </Button>
                 </div>
-                <textarea
-                  data-code-editor="true"
-                  value={cur.code}
-                  onChange={(e) => setCode(e.target.value)}
-                  spellCheck={false}
-                  className="h-[42vh] w-full resize-none rounded-md border border-border bg-[#0b1020] p-3 font-mono text-sm text-green-100 outline-none focus:ring-2 focus:ring-[var(--brand-blue)]"
-                />
+
+                {/* VS Code-styled editor */}
+                <div className="vscode-editor flex flex-col" data-code-editor="true">
+                  <div className="vscode-titlebar">
+                    <span className="vscode-dot" style={{ background: "#ff5f56" }} />
+                    <span className="vscode-dot" style={{ background: "#ffbd2e" }} />
+                    <span className="vscode-dot" style={{ background: "#27c93f" }} />
+                    <span className="ml-3 opacity-70">XPay · Coding Round</span>
+                    <span className="ml-auto opacity-50">UTF-8 · LF</span>
+                  </div>
+                  <div style={{ background: "#2d2d2d", borderBottom: "1px solid #1a1a1a" }}>
+                    <span className="vscode-tab">{langLabel[cur.language]}</span>
+                  </div>
+                  <div style={{ maxHeight: "42vh", overflow: "auto", background: "#1e1e1e" }}>
+                    <Editor
+                      value={cur.code}
+                      onValueChange={(code) => setCode(code)}
+                      highlight={(code) =>
+                        Prism.highlight(code, Prism.languages[PRISM_LANG[cur.language]] || Prism.languages.clike, PRISM_LANG[cur.language])
+                      }
+                      padding={14}
+                      textareaId="vscode-textarea"
+                      textareaClassName="vscode-textarea"
+                      preClassName="vscode-pre"
+                      style={{
+                        fontFamily:
+                          '"Fira Code", "JetBrains Mono", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                        fontSize: 14,
+                        lineHeight: 1.55,
+                        minHeight: "40vh",
+                        outline: "none",
+                        color: "#d4d4d4",
+                        caretColor: "#ffffff",
+                      }}
+                    />
+                  </div>
+                  <div className="vscode-statusbar">
+                    <span>{SUPPORTED_LANGUAGES.find((l) => l.id === cur.language)?.label}</span>
+                    <span>Ln {cur.code.split("\n").length}</span>
+                    <span>{cur.code.length} chars</span>
+                    <span className="ml-auto">⚡ XPay Exam Portal</span>
+                  </div>
+                </div>
+
                 <div className="overflow-y-auto rounded-md border border-border bg-muted/30 p-3 text-xs font-mono">
                   {cur.lastRun ? (
                     <>
@@ -342,9 +445,9 @@ export default function Coding() {
           </div>
 
           <div className="mt-4 flex items-center justify-between">
-            <Button variant="outline" onClick={() => setCurrent((c) => Math.max(0, c - 1))} disabled={current === 0}>← Previous</Button>
+            <Button variant="outline" onClick={() => gotoQuestion(Math.max(0, current - 1))} disabled={current === 0}>← Previous</Button>
             {current < questions.length - 1 ? (
-              <Button onClick={() => setCurrent((c) => c + 1)} className="bg-brand-gradient border-0 text-white font-semibold">Next →</Button>
+              <Button onClick={() => gotoQuestion(current + 1)} className="bg-brand-gradient border-0 text-white font-semibold">Next →</Button>
             ) : (
               <Button onClick={submit} disabled={submitting} className="bg-brand-gradient border-0 text-white font-semibold">
                 {submitting ? "Submitting…" : "Submit Coding Round"}

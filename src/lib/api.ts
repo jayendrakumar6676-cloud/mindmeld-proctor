@@ -18,6 +18,13 @@ export interface ServerSubmission {
   results?: unknown;
   totalMarks?: number;
   totalPossible?: number;
+  // Analytics (optional)
+  accuracy?: number;
+  correctCount?: number;
+  attemptedCount?: number;
+  durationMs?: number;
+  timePerQuestion?: Record<string | number, number>;
+  codeEditsPerQuestion?: Record<string, number>;
 }
 
 export async function postSubmission(payload: ServerSubmission): Promise<{ ok: boolean; file?: string; error?: string }> {

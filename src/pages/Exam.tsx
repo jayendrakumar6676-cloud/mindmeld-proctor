@@ -26,6 +26,10 @@ export default function Exam() {
   const [timeLeft, setTimeLeft] = useState((exam?.durationMin ?? 10) * 60);
   const [violations, setViolations] = useState(0);
   const [permError, setPermError] = useState<string | null>(null);
+  const [timePerQuestion, setTimePerQuestion] = useState<Record<number, number>>({});
+  const startedAtRef = useRef<number>(Date.now());
+  const focusStartRef = useRef<number>(Date.now());
+  const examStartRef = useRef<number>(Date.now());
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -43,24 +47,65 @@ export default function Exam() {
     setPhase("instructions");
   }, [exam, navigate]);
 
+  // Accumulate time spent on a given question
+  const accumulateTime = useCallback((questionId: number) => {
+    const now = Date.now();
+    const delta = now - focusStartRef.current;
+    focusStartRef.current = now;
+    if (delta > 0 && delta < 1000 * 60 * 30) {
+      setTimePerQuestion((m) => ({ ...m, [questionId]: (m[questionId] ?? 0) + delta }));
+    }
+  }, []);
+
+  const gotoQuestion = useCallback(
+    (idx: number) => {
+      const q = questions[current];
+      if (q) accumulateTime(q.id);
+      setCurrent(idx);
+    },
+    [accumulateTime, current, questions],
+  );
+
   const submit = useCallback(() => {
     if (finishedRef.current) return;
     finishedRef.current = true;
-    let correct = 0, wrong = 0;
+    // accumulate time on the active question
+    const activeQ = questions[current];
+    if (activeQ) {
+      const now = Date.now();
+      const delta = now - focusStartRef.current;
+      if (delta > 0 && delta < 1000 * 60 * 30) {
+        setTimePerQuestion((m) => ({ ...m, [activeQ.id]: (m[activeQ.id] ?? 0) + delta }));
+      }
+    }
+    let correct = 0, wrong = 0, attempted = 0;
     questions.forEach((q) => {
       const a = answers[q.id];
       if (a === undefined) return;
+      attempted++;
       if (a === q.answer) correct++; else wrong++;
     });
     const mark = exam?.marksPerQuestion ?? 2;
     const neg = mark * (exam?.negativeMarkFraction ?? 0.25);
     const rawScore = correct * mark - wrong * neg;
+    const accuracy = attempted > 0 ? correct / attempted : 0;
+    const durationMs = Date.now() - examStartRef.current;
+    // Snapshot the latest accumulated map (closure-safe)
+    const tpqSnapshot = { ...timePerQuestion };
+    if (activeQ) {
+      const now = Date.now();
+      const delta = now - focusStartRef.current;
+      if (delta > 0 && delta < 1000 * 60 * 30) {
+        tpqSnapshot[activeQ.id] = (tpqSnapshot[activeQ.id] ?? 0) + delta;
+      }
+    }
     if (exam && candidate) {
       recordAttempt(candidate.email, {
         examId: exam.id, submittedAt: Date.now(), violations,
         score: rawScore, total: questions.length * mark,
+        timePerQuestion: tpqSnapshot,
+        durationMs, correctCount: correct, attemptedCount: attempted, accuracy,
       });
-      // Persist to local laptop disk via the Express server (best effort).
       void postSubmission({
         kind: "mcq",
         examId: exam.id,
@@ -70,8 +115,17 @@ export default function Exam() {
         violations,
         score: rawScore,
         total: questions.length * mark,
+        accuracy, correctCount: correct, attemptedCount: attempted,
+        durationMs,
+        timePerQuestion: tpqSnapshot,
         answers: Object.fromEntries(
-          questions.map((q) => [q.id, { question: q.q, given: answers[q.id], correct: q.answer, options: q.options }])
+          questions.map((q) => [q.id, {
+            question: q.q,
+            given: answers[q.id],
+            correct: q.answer,
+            options: q.options,
+            timeMs: tpqSnapshot[q.id] ?? 0,
+          }])
         ),
       });
     }
@@ -79,7 +133,7 @@ export default function Exam() {
     streamRef.current = null;
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     setPhase("submitted");
-  }, [answers, exam, candidate, violations, questions]);
+  }, [answers, exam, candidate, violations, questions, current, timePerQuestion]);
 
   const flagViolation = useCallback((reason: string) => {
     setViolations((v) => {
@@ -154,6 +208,9 @@ export default function Exam() {
 
   useEffect(() => {
     if (phase !== "running") return;
+    examStartRef.current = Date.now();
+    focusStartRef.current = Date.now();
+    startedAtRef.current = Date.now();
     const v = videoRef.current, s = streamRef.current;
     if (!v || !s) return;
     v.srcObject = s; v.muted = true; v.playsInline = true;
@@ -304,10 +361,14 @@ export default function Exam() {
                       })}
                     </div>
 
-                    <div className="mt-8 flex items-center justify-between">
-                      <Button variant="outline" onClick={() => setCurrent((c) => Math.max(0, c - 1))} disabled={current === 0}>← Previous</Button>
+                    <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
+                      <span>⏱ This question: <strong className="text-foreground">{(((timePerQuestion[q.id] ?? 0) + (Date.now() - focusStartRef.current)) / 1000).toFixed(0)}s</strong></span>
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <Button variant="outline" onClick={() => gotoQuestion(Math.max(0, current - 1))} disabled={current === 0}>← Previous</Button>
                       {current < questions.length - 1 ? (
-                        <Button onClick={() => setCurrent((c) => Math.min(questions.length - 1, c + 1))} className="bg-brand-gradient border-0 text-white font-semibold">Next →</Button>
+                        <Button onClick={() => gotoQuestion(Math.min(questions.length - 1, current + 1))} className="bg-brand-gradient border-0 text-white font-semibold">Next →</Button>
                       ) : (
                         <Button onClick={submit} className="bg-brand-gradient border-0 text-white font-semibold">Submit Exam</Button>
                       )}
@@ -325,7 +386,7 @@ export default function Exam() {
                       {questions.map((qq, i) => (
                         <button
                           key={qq.id}
-                          onClick={() => setCurrent(i)}
+                          onClick={() => gotoQuestion(i)}
                           className={`aspect-square rounded-lg text-sm font-semibold transition-smooth ${
                             i === current ? "bg-brand-gradient text-white shadow-brand"
                               : answers[qq.id] !== undefined ? "bg-[var(--brand-green)]/30 text-foreground"
