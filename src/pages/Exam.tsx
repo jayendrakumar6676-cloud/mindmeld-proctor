@@ -358,10 +358,14 @@ export default function Exam() {
                       })}
                     </div>
 
-                    <div className="mt-8 flex items-center justify-between">
-                      <Button variant="outline" onClick={() => setCurrent((c) => Math.max(0, c - 1))} disabled={current === 0}>← Previous</Button>
+                    <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
+                      <span>⏱ This question: <strong className="text-foreground">{(((timePerQuestion[q.id] ?? 0) + (Date.now() - focusStartRef.current)) / 1000).toFixed(0)}s</strong></span>
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <Button variant="outline" onClick={() => gotoQuestion(Math.max(0, current - 1))} disabled={current === 0}>← Previous</Button>
                       {current < questions.length - 1 ? (
-                        <Button onClick={() => setCurrent((c) => Math.min(questions.length - 1, c + 1))} className="bg-brand-gradient border-0 text-white font-semibold">Next →</Button>
+                        <Button onClick={() => gotoQuestion(Math.min(questions.length - 1, current + 1))} className="bg-brand-gradient border-0 text-white font-semibold">Next →</Button>
                       ) : (
                         <Button onClick={submit} className="bg-brand-gradient border-0 text-white font-semibold">Submit Exam</Button>
                       )}
@@ -379,7 +383,7 @@ export default function Exam() {
                       {questions.map((qq, i) => (
                         <button
                           key={qq.id}
-                          onClick={() => setCurrent(i)}
+                          onClick={() => gotoQuestion(i)}
                           className={`aspect-square rounded-lg text-sm font-semibold transition-smooth ${
                             i === current ? "bg-brand-gradient text-white shadow-brand"
                               : answers[qq.id] !== undefined ? "bg-[var(--brand-green)]/30 text-foreground"
