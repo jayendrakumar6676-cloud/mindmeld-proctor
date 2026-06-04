@@ -36,11 +36,9 @@
 
 :root {
   --radius: 0.75rem;
-
-  /* Brand tokens derived from XPay logo */
-  --brand-blue: oklch(0.55 0.24 264);     /* electric blue */
-  --brand-green: oklch(0.82 0.22 152);    /* vivid mint/green */
-  --brand-ink: oklch(0.18 0.03 260);      /* deep ink navy */
+  --brand-blue: oklch(0.55 0.24 264);
+  --brand-green: oklch(0.82 0.22 152);
+  --brand-ink: oklch(0.18 0.03 260);
 
   --background: oklch(0.985 0.005 240);
   --foreground: var(--brand-ink);
@@ -62,7 +60,6 @@
   --input: oklch(0.92 0.015 240);
   --ring: var(--brand-blue);
 
-  /* Gradients & shadows */
   --gradient-brand: linear-gradient(135deg, oklch(0.55 0.24 264) 0%, oklch(0.7 0.22 200) 45%, oklch(0.82 0.22 152) 100%);
   --gradient-surface: linear-gradient(160deg, oklch(0.98 0.02 240) 0%, oklch(0.96 0.04 180) 60%, oklch(0.95 0.06 152) 100%);
   --gradient-ink: linear-gradient(135deg, oklch(0.22 0.04 260) 0%, oklch(0.16 0.05 240) 100%);
@@ -131,3 +128,67 @@
   0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--brand-green) 40%, transparent); }
   50% { box-shadow: 0 0 0 14px color-mix(in oklab, var(--brand-green) 0%, transparent); }
 }
+
+/* ============================================================
+   VS Code Dark+ inspired editor theme (Prism)
+   Used by the Coding round editor.
+   ============================================================ */
+.vscode-editor {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: "Fira Code", "JetBrains Mono", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.55;
+  tab-size: 4;
+  border-radius: 8px;
+  border: 1px solid #2d2d2d;
+  overflow: auto;
+}
+.vscode-editor textarea:focus { outline: none !important; }
+.vscode-editor pre, .vscode-editor code,
+.vscode-editor textarea { font-family: inherit !important; }
+
+.vscode-titlebar {
+  background: #252526;
+  border-bottom: 1px solid #1a1a1a;
+  color: #cccccc;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  padding: 6px 12px;
+  display: flex; align-items: center; gap: 8px;
+  border-radius: 8px 8px 0 0;
+}
+.vscode-dot { width: 12px; height: 12px; border-radius: 999px; display: inline-block; }
+.vscode-tab {
+  background: #1e1e1e;
+  border-top: 2px solid #0098ff;
+  color: #ffffff;
+  padding: 4px 14px;
+  font-size: 12px;
+  border-right: 1px solid #252526;
+}
+.vscode-statusbar {
+  background: #007acc;
+  color: white;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  padding: 3px 10px;
+  display: flex; gap: 14px; align-items: center;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Prism token colors — VS Code Dark+ */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #6a9955; font-style: italic; }
+.token.punctuation { color: #d4d4d4; }
+.token.property, .token.tag, .token.boolean, .token.number,
+.token.constant, .token.symbol, .token.deleted { color: #b5cea8; }
+.token.selector, .token.attr-name, .token.string,
+.token.char, .token.builtin, .token.inserted { color: #ce9178; }
+.token.operator, .token.entity, .token.url,
+.language-css .token.string, .style .token.string { color: #d4d4d4; }
+.token.atrule, .token.attr-value, .token.keyword { color: #569cd6; }
+.token.function, .token.class-name { color: #dcdcaa; }
+.token.regex, .token.important, .token.variable { color: #9cdcfe; }
+.token.parameter { color: #9cdcfe; }
+.token.important, .token.bold { font-weight: bold; }
+.token.italic { font-style: italic; }

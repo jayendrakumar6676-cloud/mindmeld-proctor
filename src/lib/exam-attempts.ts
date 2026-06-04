@@ -4,9 +4,14 @@ export interface AttemptRecord {
   examId: string;
   submittedAt: number;
   violations: number;
-  // score intentionally NOT exposed to candidate; stored for invigilator only
   score: number;
   total: number;
+  // ms spent on each question, keyed by question id
+  timePerQuestion?: Record<number, number>;
+  durationMs?: number;
+  correctCount?: number;
+  attemptedCount?: number;
+  accuracy?: number; // 0..1
 }
 
 export function getAttempts(email: string): AttemptRecord[] {
