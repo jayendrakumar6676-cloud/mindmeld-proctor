@@ -263,4 +263,62 @@ export const EXAMS: ExamCategory[] = [
   },
   {
     id: "dsa",
-    title: "D
+    title: "DSA Test",
+    description: "Data Structures & Algorithms MCQs.",
+    durationMin: 20,
+    accent: "from-indigo-500 to-cyan-400",
+    icon: "🧩",
+    marksPerQuestion: 2,
+    negativeMarkFraction: 0.25,
+    questions: placeholder("DSA"),
+  },
+  {
+    id: "coding",
+    title: "Coding Round",
+    description: "Code reasoning, dry-run & output prediction.",
+    durationMin: 30,
+    accent: "from-blue-600 to-teal-400",
+    icon: "💻",
+    marksPerQuestion: 2,
+    negativeMarkFraction: 0.25,
+    questions: placeholder("Coding"),
+  },
+  {
+    id: "system",
+    title: "System Understanding",
+    description: "Pro-level system design, architecture, networking & DB internals.",
+    durationMin: 25,
+    accent: "from-violet-500 to-sky-400",
+    icon: "🖥️",
+    marksPerQuestion: 2,
+    negativeMarkFraction: 0.25,
+    questions: systemQuestions,
+  },
+  {
+    id: "technical",
+    title: "Technical Assessment",
+    description: "Fundamental coding, debugging & integration tasks (API, Node.js, REST).",
+    durationMin: 25,
+    accent: "from-emerald-500 to-lime-400",
+    icon: "⚙️",
+    marksPerQuestion: 2,
+    negativeMarkFraction: 0.25,
+    questions: technicalQuestions,
+  },
+];
+
+export const getExam = (id: string) => EXAMS.find((e) => e.id === id);
+
+export function shuffle<T>(arr: T[]): T[] {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export function prepareExam(exam: ExamCategory): Question[] {
+  return shuffle(exam.questions).map((q) => {
+    const idxs = shuffle(q.options.map((_, i) => i));
+    return { ...q, options: idxs.map((i) => q.options[i]), answer: idxs.ind
