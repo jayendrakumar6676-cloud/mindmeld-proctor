@@ -39,73 +39,6 @@ export type LanguageId = typeof SUPPORTED_LANGUAGES[number]["id"];
 // ---------- Default question bank (replace freely) ----------
 export const CODING_QUESTIONS: CodingQuestion[] = [
   {
-    id: "sum-two",
-    title: "Sum of Two Numbers",
-    difficulty: "Easy",
-    marks: 10,
-    prompt:
-      "Given two integers A and B, print their sum.\n\nThis is a warm-up to verify your I/O setup works in the language of your choice.",
-    inputFormat: "A single line containing two space-separated integers A and B.",
-    outputFormat: "A single integer: A + B.",
-    constraints: ["-10^9 ≤ A, B ≤ 10^9"],
-    sample: [
-      { input: "3 5", output: "8" },
-      { input: "-2 10", output: "8" },
-    ],
-    testCases: [
-      { stdin: "3 5",            expected: "8",          hidden: false },
-      { stdin: "-2 10",          expected: "8",          hidden: false },
-      { stdin: "0 0",            expected: "0",          hidden: true  },
-      { stdin: "1000000000 1",   expected: "1000000001", hidden: true  },
-      { stdin: "-7 -8",          expected: "-15",        hidden: true  },
-    ],
-  },
-  {
-    id: "reverse-string",
-    title: "Reverse a String",
-    difficulty: "Easy",
-    marks: 15,
-    prompt:
-      "Given a string S (no spaces inside), print its reverse.",
-    inputFormat: "A single line containing the string S.",
-    outputFormat: "The reversed string on a single line.",
-    constraints: ["1 ≤ |S| ≤ 10^5", "S contains printable ASCII (no spaces)"],
-    sample: [
-      { input: "hello",  output: "olleh" },
-      { input: "XPay",   output: "yaPX"  },
-    ],
-    testCases: [
-      { stdin: "hello",       expected: "olleh",       hidden: false },
-      { stdin: "XPay",        expected: "yaPX",        hidden: false },
-      { stdin: "a",           expected: "a",           hidden: true  },
-      { stdin: "racecar",     expected: "racecar",     hidden: true  },
-      { stdin: "abcdefghij",  expected: "jihgfedcba",  hidden: true  },
-    ],
-  },
-  {
-    id: "fizzbuzz",
-    title: "FizzBuzz Up To N",
-    difficulty: "Medium",
-    marks: 20,
-    prompt:
-      "Given an integer N, print numbers from 1 to N, one per line. For multiples of 3 print 'Fizz', for multiples of 5 print 'Buzz', and for multiples of both print 'FizzBuzz'.",
-    inputFormat: "A single integer N.",
-    outputFormat: "N lines as described above.",
-    constraints: ["1 ≤ N ≤ 100"],
-    sample: [
-      {
-        input: "5",
-        output: "1\n2\nFizz\n4\nBuzz",
-      },
-    ],
-    testCases: [
-      { stdin: "5",  expected: "1\n2\nFizz\n4\nBuzz", hidden: false },
-      { stdin: "1",  expected: "1",                   hidden: true  },
-      { stdin: "3",  expected: "1\n2\nFizz",          hidden: true  },
-      { stdin: "15", expected: "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz", hidden: true },
-    ],
-  },
-  {
     id: "read4-ii",
     title: "Read N Characters Given read4 II — Call Multiple Times",
     difficulty: "Hard",
@@ -155,7 +88,89 @@ Line 3: Q space-separated integers (queries)`,
       { stdin: "abcdefghij\n1\n1000",    expected: "10",        hidden: true  },
     ],
   },
+  {
+    id: "sudoku-solver",
+    title: "Sudoku Solver",
+    difficulty: "Hard",
+    marks: 10,
+    prompt:
+`Write a program to solve a Sudoku puzzle by filling the empty cells. A sudoku solution must satisfy all of the following rules:
+
+1. Each of the digits 1-9 must occur exactly once in each row.
+2. Each of the digits 1-9 must occur exactly once in each column.
+3. Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
+
+The '.' character indicates empty cells.
+
+------------------------------------------------------------
+INPUT / OUTPUT PROTOCOL FOR THIS JUDGE
+------------------------------------------------------------
+Read 9 lines from stdin. Each line is exactly 9 characters long containing digits '1'-'9' or '.' for empty cells.
+Print 9 lines to stdout. Each line is the corresponding row of the fully solved board (9 digits, no separators).`,
+    inputFormat: "9 lines, each 9 characters (digits '1'-'9' or '.').",
+    outputFormat: "9 lines, each 9 digits — the completely solved board.",
+    constraints: [
+      "Board is exactly 9x9.",
+      "Each cell is a digit '1'-'9' or '.'.",
+      "Input is guaranteed to have exactly one valid solution.",
+    ],
+    sample: [
+      {
+        input: "53..7....\n6..195...\n.98....6.\n8...6...3\n4..8.3..1\n7...2...6\n.6....28.\n...419..5\n....8..79",
+        output: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179",
+        explanation: "Classic LeetCode Sudoku sample. Solver fills all empty cells with the unique solution.",
+      },
+    ],
+    testCases: [
+      {
+        stdin: "53..7....\n6..195...\n.98....6.\n8...6...3\n4..8.3..1\n7...2...6\n.6....28.\n...419..5\n....8..79",
+        expected: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179",
+        hidden: false,
+      },
+      {
+        stdin: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n34528617.",
+        expected: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179",
+        hidden: true,
+      },
+    ],
+  },
+  {
+    id: "fizz-buzz",
+    title: "Fizz Buzz",
+    difficulty: "Easy",
+    marks: 5,
+    prompt:
+`Given an integer n, return a string array answer (1-indexed) where:
+
+- answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+- answer[i] == "Fizz" if i is divisible by 3.
+- answer[i] == "Buzz" if i is divisible by 5.
+- answer[i] == i (as a string) if none of the above conditions are true.
+
+------------------------------------------------------------
+INPUT / OUTPUT PROTOCOL FOR THIS JUDGE
+------------------------------------------------------------
+Read a single integer n from stdin.
+Print the resulting array on ONE line as a JSON-style list of double-quoted strings, e.g. ["1","2","Fizz"].
+Use commas with NO spaces between elements.`,
+    inputFormat: "A single integer n.",
+    outputFormat: `One line: ["v1","v2",...,"vn"] (double-quoted, comma-separated, no spaces).`,
+    constraints: ["1 <= n <= 10^4"],
+    sample: [
+      { input: "3",  output: `["1","2","Fizz"]` },
+      { input: "5",  output: `["1","2","Fizz","4","Buzz"]` },
+      { input: "15", output: `["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]` },
+    ],
+    testCases: [
+      { stdin: "3",  expected: `["1","2","Fizz"]`, hidden: false },
+      { stdin: "5",  expected: `["1","2","Fizz","4","Buzz"]`, hidden: false },
+      { stdin: "15", expected: `["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]`, hidden: true },
+      { stdin: "1",  expected: `["1"]`, hidden: true },
+      { stdin: "2",  expected: `["1","2"]`, hidden: true },
+    ],
+  },
 ];
 
 export const getCodingQuestion = (id: string) =>
   CODING_QUESTIONS.find((q) => q.id === id);
+

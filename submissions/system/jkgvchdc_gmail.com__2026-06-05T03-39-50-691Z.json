@@ -1,0 +1,83 @@
+{
+  "kind": "mcq",
+  "examId": "system",
+  "candidateEmail": "jkgvchdc@gmail.com",
+  "candidateName": "joh n",
+  "submittedAt": 1780630790691,
+  "violations": 1,
+  "score": 0,
+  "total": 10,
+  "accuracy": 0,
+  "correctCount": 0,
+  "attemptedCount": 0,
+  "durationMs": 14249,
+  "timePerQuestion": {
+    "1": 163,
+    "2": 135,
+    "3": 193,
+    "4": 13611,
+    "5": 147
+  },
+  "answers": {
+    "1": {
+      "question": "[System] Sample question 1 - replace with real question.",
+      "correct": 3,
+      "options": [
+        "Option C",
+        "Option B",
+        "Option D",
+        "Option A",
+        "None of the above"
+      ],
+      "timeMs": 163
+    },
+    "2": {
+      "question": "[System] Sample question 2 - replace with real question.",
+      "correct": 1,
+      "options": [
+        "None of the above",
+        "Option A",
+        "Option C",
+        "Option D",
+        "Option B"
+      ],
+      "timeMs": 135
+    },
+    "3": {
+      "question": "[System] Sample question 3 - replace with real question.",
+      "correct": 3,
+      "options": [
+        "Option D",
+        "Option B",
+        "None of the above",
+        "Option A",
+        "Option C"
+      ],
+      "timeMs": 193
+    },
+    "4": {
+      "question": "[System] Sample question 4 - replace with real question.",
+      "correct": 4,
+      "options": [
+        "Option B",
+        "Option C",
+        "Option D",
+        "None of the above",
+        "Option A"
+      ],
+      "timeMs": 13611
+    },
+    "5": {
+      "question": "[System] Sample question 5 - replace with real question.",
+      "correct": 4,
+      "options": [
+        "None of the above",
+        "Option D",
+        "Option C",
+        "Option B",
+        "Option A"
+      ],
+      "timeMs": 147
+    }
+  }
+}
