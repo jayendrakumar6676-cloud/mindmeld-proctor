@@ -248,3 +248,19 @@ const technicalQuestions: Question[] = [
      "Insert the 999 and return 207 Multi-Status with per-item 201 Created / 400 Bad Request details.",
      "Halt, return 500, trigger PagerDuty.", NOTA], 2),
 ];
+
+export const EXAMS: ExamCategory[] = [
+  {
+    id: "aptitude",
+    title: "Aptitude Test",
+    description: "Quantitative, logical reasoning & verbal ability.",
+    durationMin: 40,
+    accent: "from-sky-500 to-emerald-400",
+    icon: "🧮",
+    marksPerQuestion: 2,
+    negativeMarkFraction: 0.25,
+    questions: aptitudeQuestions,
+  },
+  {
+    id: "dsa",
+    title: "D
