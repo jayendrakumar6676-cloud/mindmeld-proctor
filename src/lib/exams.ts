@@ -77,3 +77,12 @@ const aptitudeQuestions: Question[] = [
     ["1", "2", "4", "8", NOTA], 2),
   Q(30, "Radius of a circle increased by 20%. % increase in area?", ["20%", "40%", "44%", "400%", NOTA], 2),
 ];
+
+// 20 Pro-Level System Design & Architecture MCQs.
+const systemQuestions: Question[] = [
+  Q(1, "In an HTTP/2 architecture, multiple client requests are multiplexed over a single TCP connection to an Express API Gateway. If a single packet containing a partial payload for Request A is lost in transit, what happens to Request B, which is fully received and queued behind it?",
+    ["Request B is processed immediately because HTTP/2 streams are independent at the application layer.",
+     "Request B is blocked until the missing packet for Request A is retransmitted and acknowledged, due to TCP's strict ordered delivery (TCP head-of-line blocking).",
+     "The TCP connection automatically falls back to HTTP/1.1 to process Request B.",
+     "The API Gateway drops both requests and forces a new TLS handshake.", NOTA], 1),
+  Q(2, "You are designing a high-throughput time-series database and choose an LSM-Tree over a B
