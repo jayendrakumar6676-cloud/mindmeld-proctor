@@ -117,7 +117,60 @@ Print 9 lines to stdout. Each line is the corresponding row of the fully solved 
     sample: [
       {
         input: "53..7....\n6..195...\n.98....6.\n8...6...3\n4..8.3..1\n7...2...6\n.6....28.\n...419..5\n....8..79",
-        output: "534678912\n672195
+        output: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179",
+        explanation: "Classic LeetCode Sudoku sample. Solver fills all empty cells with the unique solution.",
+      },
+    ],
+    testCases: [
+      {
+        stdin: "53..7....\n6..195...\n.98....6.\n8...6...3\n4..8.3..1\n7...2...6\n.6....28.\n...419..5\n....8..79",
+        expected: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179",
+        hidden: false,
+      },
+      {
+        stdin: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n34528617.",
+        expected: "534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179",
+        hidden: true,
+      },
+    ],
+  },
+  {
+    id: "fizz-buzz",
+    title: "Fizz Buzz",
+    difficulty: "Easy",
+    marks: 5,
+    prompt:
+`Given an integer n, return a string array answer (1-indexed) where:
+
+- answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+- answer[i] == "Fizz" if i is divisible by 3.
+- answer[i] == "Buzz" if i is divisible by 5.
+- answer[i] == i (as a string) if none of the above conditions are true.
+
+------------------------------------------------------------
+INPUT / OUTPUT PROTOCOL FOR THIS JUDGE
+------------------------------------------------------------
+Read a single integer n from stdin.
+Print the resulting array on ONE line as a JSON-style list of double-quoted strings, e.g. ["1","2","Fizz"].
+Use commas with NO spaces between elements.`,
+    inputFormat: "A single integer n.",
+    outputFormat: `One line: ["v1","v2",...,"vn"] (double-quoted, comma-separated, no spaces).`,
+    constraints: ["1 <= n <= 10^4"],
+    sample: [
+      { input: "3",  output: `["1","2","Fizz"]` },
+      { input: "5",  output: `["1","2","Fizz","4","Buzz"]` },
+      { input: "15", output: `["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]` },
+    ],
+    testCases: [
+      { stdin: "3",  expected: `["1","2","Fizz"]`, hidden: false },
+      { stdin: "5",  expected: `["1","2","Fizz","4","Buzz"]`, hidden: false },
+      { stdin: "15", expected: `["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]`, hidden: true },
+      { stdin: "1",  expected: `["1"]`, hidden: true },
+      { stdin: "2",  expected: `["1","2"]`, hidden: true },
+    ],
+  },
+];
 
 export const getCodingQuestion = (id: string) =>
   CODING_QUESTIONS.find((q) => q.id === id);
+
