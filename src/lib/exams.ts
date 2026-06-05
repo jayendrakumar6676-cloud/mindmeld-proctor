@@ -43,4 +43,3 @@ const aptitudeQuestions: Question[] = [
     ["20%", "22.5%", "25%", "31.5%", NOTA], 2),
   Q(7, "An algorithmic quantitative trading protocol liquidated a digital asset, realizing an 18% financial deficit relative to its initial fiat acquisition cost. Had the asset been liquidated at a price point exactly 680 INR higher, the transaction would have yielded a 16% fiscal surplus instead of a deficit. Determine the absolute initial fiat acquisition cost.",
     ["2,000 INR", "2,500 INR", "3,400 INR", "4,000 INR", NOTA], 0),
-  Q(8, "u and v satisfy u + v = 7 and u*v = 10. Determine u^3 + v^3.", ["125", "133
