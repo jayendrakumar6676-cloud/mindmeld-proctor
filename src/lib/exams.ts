@@ -138,7 +138,6 @@ const systemQuestions: Question[] = [
      "Auto shutdown if ping > 500ms.",
      "Manually pause the DB during outages.", NOTA], 1),
   Q(14, "Petabytes of immutable video files served directly to Edge CDNs. Best storage architecture?",
-  Q(14, "Petabytes of immutable video files served directly to Edge CDNs. Best storage architecture?",
     ["Block Storage (EBS) for byte-level modification.",
      "Object Storage (S3) — scales infinitely, immutable objects, rich metadata, native HTTP access.",
      "Relational DB BLOBs for strict ACID on video playback.",
