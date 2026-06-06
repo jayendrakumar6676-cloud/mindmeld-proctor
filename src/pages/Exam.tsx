@@ -323,6 +323,19 @@ export default function Exam() {
               <div className="flex items-center gap-2 text-sm">
                 <span className="rounded-full bg-destructive/10 px-3 py-1 font-medium text-destructive">⚠ {violations}/{MAX_VIOLATIONS}</span>
                 <span className="rounded-full bg-ink-gradient px-4 py-1 font-mono font-semibold text-white">⏱ {mmss}</span>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    const answered = Object.keys(answers).length;
+                    const msg = answered < questions.length
+                      ? `You have answered ${answered}/${questions.length}. Submit anyway?`
+                      : "Submit the exam now?";
+                    if (window.confirm(msg)) submit();
+                  }}
+                  className="bg-brand-gradient border-0 text-white font-semibold"
+                >
+                  Submit Exam
+                </Button>
               </div>
             </header>
 
