@@ -1,0 +1,278 @@
+{
+  "kind": "mcq",
+  "examId": "system",
+  "candidateEmail": "surendrakumar6676@gmail.com",
+  "candidateName": "mn",
+  "submittedAt": 1780709108344,
+  "violations": 2,
+  "score": 0,
+  "total": 40,
+  "accuracy": 0,
+  "correctCount": 0,
+  "attemptedCount": 0,
+  "durationMs": 37271,
+  "timePerQuestion": {
+    "1": 4020,
+    "2": 914,
+    "3": 863,
+    "4": 982,
+    "5": 621,
+    "6": 780,
+    "7": 916,
+    "8": 1480,
+    "9": 729,
+    "10": 1062,
+    "11": 4294,
+    "12": 1439,
+    "13": 811,
+    "14": 1054,
+    "15": 789,
+    "16": 1981,
+    "17": 809,
+    "18": 11792,
+    "19": 941,
+    "20": 994
+  },
+  "answers": {
+    "1": {
+      "question": "In an HTTP/2 architecture, multiple client requests are multiplexed over a single TCP connection to an Express API Gateway. If a single packet containing a partial payload for Request A is lost in transit, what happens to Request B, which is fully received and queued behind it?",
+      "correct": 4,
+      "options": [
+        "None of the above.",
+        "The TCP connection automatically falls back to HTTP/1.1 to process Request B.",
+        "The API Gateway drops both requests and forces a new TLS handshake.",
+        "Request B is processed immediately because HTTP/2 streams are independent at the application layer.",
+        "Request B is blocked until the missing packet for Request A is retransmitted and acknowledged, due to TCP's strict ordered delivery (TCP head-of-line blocking)."
+      ],
+      "timeMs": 4020
+    },
+    "2": {
+      "question": "You are designing a high-throughput time-series DB and choose an LSM-Tree over a B-Tree. What is a primary trade-off of LSM-Trees?",
+      "correct": 2,
+      "options": [
+        "None of the above.",
+        "LSM-Trees cannot support range queries or sequential scans.",
+        "LSM-Trees require continuous background compaction that can cause periodic latency spikes during reads.",
+        "LSM-Trees suffer from extreme Write Amplification, burning out SSDs faster than B-Trees.",
+        "LSM-Trees provide faster reads but slower writes than B-Trees."
+      ],
+      "timeMs": 914
+    },
+    "3": {
+      "question": "A high-frequency trading platform needs minimum latency. The load balancer only needs to distribute traffic based on IP and Port — no HTTP inspection. Which strategy fits?",
+      "correct": 4,
+      "options": [
+        "None of the above.",
+        "Layer 7 HTTP Reverse Proxy",
+        "DNS Round Robin with low TTL",
+        "Application-Level Anycast",
+        "Layer 4 Transport Level Load Balancing"
+      ],
+      "timeMs": 863
+    },
+    "4": {
+      "question": "According to PACELC, what trade-off must a distributed DB (Cassandra/DynamoDB) make during normal operation when there is Else (E) no partition?",
+      "correct": 0,
+      "options": [
+        "Latency (L) versus Consistency (C)",
+        "None of the above.",
+        "Partition Tolerance (P) versus Latency (L)",
+        "Consistency (C) versus Partition Tolerance (P)",
+        "Availability (A) versus Durability (D)"
+      ],
+      "timeMs": 982
+    },
+    "5": {
+      "question": "CQRS with normalized PostgreSQL Command DB and denormalized ElasticSearch Query DB. Most significant architectural challenge?",
+      "correct": 3,
+      "options": [
+        "ElasticSearch cannot be horizontally scaled if used only for queries.",
+        "The system can no longer handle concurrent writes.",
+        "None of the above.",
+        "You must handle Eventual Consistency between Command and Query DBs — users may read stale data right after a write.",
+        "The API Gateway must execute 2PC across both DBs for every read."
+      ],
+      "timeMs": 621
+    },
+    "6": {
+      "question": "A Kafka topic has 10 partitions. You scale a Node.js consumer microservice to 12 instances in the same Consumer Group. What happens?",
+      "correct": 2,
+      "options": [
+        "All 12 instances process messages concurrently, +20% throughput.",
+        "A Split-Brain occurs causing duplicate processing on all instances.",
+        "10 instances process messages (one partition each); 2 instances sit idle.",
+        "The broker dynamically splits two partitions so all 12 receive data.",
+        "None of the above."
+      ],
+      "timeMs": 780
+    },
+    "7": {
+      "question": "What fundamental difference gives gRPC its massive performance boost over JSON/REST?",
+      "correct": 4,
+      "options": [
+        "gRPC maintains stateful connections, eliminating the need for a database.",
+        "gRPC uses UDP instead of TCP, eliminating handshake latency.",
+        "gRPC auto-implements the Circuit Breaker at the network layer.",
+        "None of the above.",
+        "gRPC uses Protocol Buffers — compressed, strongly-typed binary instead of human-readable text."
+      ],
+      "timeMs": 916
+    },
+    "8": {
+      "question": "In 2PC, after all Participants reply 'Yes' the Coordinator crashes before sending Commit. What state are the Participants in?",
+      "correct": 1,
+      "options": [
+        "They elect a new Coordinator and immediately commit.",
+        "They are blocked and must hold locks indefinitely until the Coordinator recovers or an admin intervenes.",
+        "They silently drop the transaction and accept new writes.",
+        "They auto-abort after a 5-second timeout.",
+        "None of the above."
+      ],
+      "timeMs": 1480
+    },
+    "9": {
+      "question": "10,000 concurrent requests miss the cache simultaneously and stampede the DB. Which strategy actively prevents this without serving stale data forever?",
+      "correct": 4,
+      "options": [
+        "Switch from Memcached to Redis.",
+        "None of the above.",
+        "Increase TTL to 30 days.",
+        "Implement an LRU eviction policy.",
+        "Probabilistic Early Expiration or Mutex Locks (Request Coalescing)."
+      ],
+      "timeMs": 729
+    },
+    "10": {
+      "question": "Live scoreboard pushes updates every 500ms; client never sends data back. Why is SSE often architecturally superior to WebSockets here?",
+      "correct": 2,
+      "options": [
+        "SSE is bidirectional; WebSockets are strictly unidirectional.",
+        "SSE uses UDP and is immune to head-of-line blocking.",
+        "SSE runs over standard HTTP/1.1 or HTTP/2 — native firewall support, multiplexing, and built-in automatic reconnection without a custom transport.",
+        "WebSockets cannot transmit binary data.",
+        "None of the above."
+      ],
+      "timeMs": 1062
+    },
+    "11": {
+      "question": "How does the Strangler Fig migration pattern operate at the system level?",
+      "correct": 3,
+      "options": [
+        "None of the above.",
+        "Traffic to the monolith is throttled to force users onto the new system.",
+        "The monolith's code is auto-transpiled from Java to Node.js with an LLM.",
+        "A proxy / API Gateway sits in front of the monolith. As new microservices are built, the proxy gradually routes specific URL paths to them until the monolith is decommissioned.",
+        "The legacy DB is replicated to the cloud and the monolith reads from the replica."
+      ],
+      "timeMs": 4294
+    },
+    "12": {
+      "question": "Repeatable Read isolation. TxA sees 5 PENDING orders. TxB inserts a new PENDING order and commits. TxA re-runs the same query. Without next-key locking, what anomaly occurs?",
+      "correct": 4,
+      "options": [
+        "Non-Repeatable Read",
+        "None of the above.",
+        "Dirty Read",
+        "Write Skew",
+        "Phantom Read — TxA now sees 6 results as a new row matches the range."
+      ],
+      "timeMs": 1439
+    },
+    "13": {
+      "question": "Two-node MongoDB cluster split across two DCs. Network link drops; both promote themselves to Primary → Split-Brain. How is this prevented in modern systems?",
+      "correct": 1,
+      "options": [
+        "Auto shutdown if ping > 500ms.",
+        "An odd number of voting nodes (e.g. 3) with strict majority Quorum required to elect a Primary or accept writes.",
+        "Manually pause the DB during outages.",
+        "None of the above.",
+        "Strict Last-Write-Wins conflict resolution."
+      ],
+      "timeMs": 811
+    },
+    "14": {
+      "question": "Petabytes of immutable video files served directly to Edge CDNs. Best storage architecture?",
+      "correct": 3,
+      "options": [
+        "File Storage (EFS) so thousands of servers can mount the same directory natively.",
+        "None of the above.",
+        "Relational DB BLOBs for strict ACID on video playback.",
+        "Object Storage (S3) — scales infinitely, immutable objects, rich metadata, native HTTP access.",
+        "Block Storage (EBS) for byte-level modification."
+      ],
+      "timeMs": 1054
+    },
+    "15": {
+      "question": "RabbitMQ worker keeps crashing on the same poison-pill message which is requeued infinitely. How is this resolved at the system level?",
+      "correct": 1,
+      "options": [
+        "None of the above.",
+        "Configure broker retry policy to route the message to a Dead Letter Queue (DLQ) after N failed attempts.",
+        "Increase the worker's RAM allocation.",
+        "Switch to synchronous HTTP REST.",
+        "Silently ACK and delete all failed messages."
+      ],
+      "timeMs": 789
+    },
+    "16": {
+      "question": "Stateless JWTs — need to instantly revoke one user's 60-min token without a per-request DB bottleneck. Best approach?",
+      "correct": 4,
+      "options": [
+        "Rotate the master signing secret (invalidates everyone globally).",
+        "You cannot revoke a stateless JWT; wait for expiry.",
+        "Send an HTTP DELETE to wipe the client's local storage.",
+        "None of the above.",
+        "Maintain a fast centralized Deny List of revoked jti IDs in Redis, checked by the Gateway on every request."
+      ],
+      "timeMs": 1981
+    },
+    "17": {
+      "question": "hash(key) % N breaks badly when a node dies. Which concept maps nodes/keys on a virtual ring so only a small fraction of keys are remapped on node loss?",
+      "correct": 4,
+      "options": [
+        "Linear Probing",
+        "SHA-256 Cryptographic Hashing",
+        "None of the above.",
+        "Round-Robin Hashing",
+        "Consistent Hashing"
+      ],
+      "timeMs": 809
+    },
+    "18": {
+      "question": "Circuit Breaker is Open after failures. The downstream service recovers. The breaker enters a state that allows a limited number of test requests to verify recovery. What is this state called?",
+      "correct": 0,
+      "options": [
+        "Half-Open",
+        "None of the above.",
+        "Dead-Letter",
+        "Closed",
+        "Throttled"
+      ],
+      "timeMs": 11792
+    },
+    "19": {
+      "question": "Token bucket: max 10 tokens, refill 1/sec. User idle 5 minutes, then sends 15 concurrent requests. What happens?",
+      "correct": 3,
+      "options": [
+        "All 15 processed — 300s of unused capacity is built up.",
+        "None of the above.",
+        "All 15 processed strictly at 1 req/sec for 15 seconds.",
+        "10 requests processed immediately (burst); 5 rejected with 429.",
+        "All 15 rejected — exceed the 1/sec refill rate."
+      ],
+      "timeMs": 941
+    },
+    "20": {
+      "question": "High-contention ticketing system using Optimistic Concurrency Control with version numbers. Primary drawback vs. Pessimistic Locking?",
+      "correct": 1,
+      "options": [
+        "None of the above.",
+        "Under heavy contention, OCC produces many aborted txns (HTTP 409 Conflicts), forcing heavy app-layer retry logic.",
+        "OCC places exclusive locks freezing the DB for readers.",
+        "OCC violates ACID isolation.",
+        "OCC requires active WebSocket connections."
+      ],
+      "timeMs": 994
+    }
+  }
+}

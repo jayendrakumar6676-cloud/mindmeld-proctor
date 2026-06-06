@@ -1,0 +1,213 @@
+{
+  "kind": "mcq",
+  "examId": "technical",
+  "candidateEmail": "jkgvchdc@gmail.com",
+  "candidateName": "jvbvh",
+  "submittedAt": 1780708971401,
+  "violations": 2,
+  "score": 0,
+  "total": 30,
+  "accuracy": 0,
+  "correctCount": 0,
+  "attemptedCount": 0,
+  "durationMs": 78181,
+  "timePerQuestion": {
+    "1": 148,
+    "2": 4039,
+    "3": 787,
+    "4": 997,
+    "5": 816,
+    "6": 222,
+    "7": 60952,
+    "8": 2221,
+    "9": 1032,
+    "10": 1644,
+    "11": 130,
+    "12": 125,
+    "13": 1362,
+    "14": 3550,
+    "15": 156
+  },
+  "answers": {
+    "1": {
+      "question": "Legacy Express v4 route: app.get('/data', async (req,res,next) => { const d = await fetchFromDB(); res.json(d); }). If fetchFromDB rejects, what happens?",
+      "correct": 4,
+      "options": [
+        "Express returns a 404.",
+        "Client gets a generic 500 automatically.",
+        "None of the above.",
+        "Express auto-catches and forwards to the (err,req,res,next) error middleware.",
+        "The request hangs until timeout; an UnhandledPromiseRejection warning is logged and may crash the Node process."
+      ],
+      "timeMs": 148
+    },
+    "2": {
+      "question": "GET /transactions over 50M rows with ?limit=100&offset=4999900 takes 8s. Standard API design fix?",
+      "correct": 0,
+      "options": [
+        "Cursor-based pagination (?limit=100&after=cursor_id) — DB uses an index to jump to the start instead of scanning + skipping millions.",
+        "Cache all 50M rows in Redis.",
+        "Use SELECT COUNT(*) to pre-calculate all pages.",
+        "Raise limit to 10,000 so fewer requests are needed.",
+        "None of the above."
+      ],
+      "timeMs": 4039
+    },
+    "3": {
+      "question": "Stripe webhooks: attacker replays a valid payload 500x to double-credit. Fundamental fix?",
+      "correct": 0,
+      "options": [
+        "Verify the cryptographic Stripe-Signature (which contains a timestamp) and reject payloads older than a few minutes.",
+        "None of the above.",
+        "Only allow POST, reject PUT.",
+        "Firewall to only accept webhooks from US IPs.",
+        "Validate JSON payload shape against a TS interface."
+      ],
+      "timeMs": 787
+    },
+    "4": {
+      "question": "Node.js OOM crash; heap shows millions of trapped large arrays. Most likely culprit?",
+      "correct": 2,
+      "options": [
+        "Recursive function without a base case (Call Stack Exceeded).",
+        "Forgetting new when instantiating an ES6 class.",
+        "An event listener on a long-lived object (e.g. process, server) closes over outer-scope vars, preventing GC.",
+        "None of the above.",
+        "JSON.parse on a very large response."
+      ],
+      "timeMs": 997
+    },
+    "5": {
+      "question": "Prevent Lost Updates on PUT /articles/123 via Optimistic Concurrency. Which HTTP headers?",
+      "correct": 4,
+      "options": [
+        "None of the above.",
+        "Strict-Transport-Security to encrypt the payload.",
+        "Server sends ETag; client sends Cache-Control: no-cache next time.",
+        "Server sends Authorization; client responds with X-Forwarded-For.",
+        "Server sends ETag (hash). Client sends If-Match with that hash on PUT. Server returns 412 Precondition Failed on mismatch."
+      ],
+      "timeMs": 816
+    },
+    "6": {
+      "question": "Third-party API frequently returns 429 / 503. Industry-standard resilient integration pattern?",
+      "correct": 0,
+      "options": [
+        "Exponential Backoff with Jitter — progressively increase wait + add randomness to avoid synchronized Thundering Herd.",
+        "setTimeout 60s then retry once.",
+        "None of the above.",
+        "Immediately return 200 to your client and drop the call.",
+        "while(true) retry every 10ms."
+      ],
+      "timeMs": 222
+    },
+    "7": {
+      "question": "React app at http://localhost:3000 POSTs with a custom X-Tenant-ID header to http://api.example.com. Browser blocks: CORS preflight failed. What is actually failing?",
+      "correct": 2,
+      "options": [
+        "Express is missing body-parser so the preflight JSON can't be read.",
+        "Axios is missing credentials: 'include'.",
+        "The OPTIONS preflight response is missing Access-Control-Allow-Headers: X-Tenant-ID, so the browser blocks the actual POST.",
+        "None of the above.",
+        "Server rejected because the frontend is not on HTTPS."
+      ],
+      "timeMs": 60952
+    },
+    "8": {
+      "question": "Express proxies a 5GB S3 video via const file = await s3.getObject(); res.send(file.body); — Node crashes. Correct rewrite?",
+      "correct": 0,
+      "options": [
+        "Pipe the S3 readable stream directly into the Express response (s3Stream.pipe(res)) so chunks forward without buffering the whole file in RAM.",
+        "Download the file to local disk first then fs.readFileSync.",
+        "None of the above.",
+        "zlib-compress to ZIP before sending.",
+        "Bump heap to 8GB with --max-old-space-size=8192."
+      ],
+      "timeMs": 2221
+    },
+    "9": {
+      "question": "An endpoint does heavy synchronous math. All other clients experience massive latency and health-checks fail. Why?",
+      "correct": 2,
+      "options": [
+        "GC pauses to clean math variables.",
+        "DB connection pool is exhausted.",
+        "Synchronous JS blocks the single-threaded Node Event Loop, preventing acceptance/processing of any other HTTP requests or async callbacks.",
+        "Router uses HTTP/1.1 instead of HTTP/2.",
+        "None of the above."
+      ],
+      "timeMs": 1032
+    },
+    "10": {
+      "question": "PATCH /users/:id does User.findByIdAndUpdate(req.params.id, req.body). Attacker sends {isAdmin:true} and becomes admin. Vulnerability + fix?",
+      "correct": 0,
+      "options": [
+        "Mass Assignment / Over-posting — explicitly destructure permitted fields (e.g. const {name,email}=req.body) before update.",
+        "Broken Authentication — rotate JWT secret.",
+        "SQL Injection — escape input.",
+        "None of the above.",
+        "XSS — sanitize HTML in payload."
+      ],
+      "timeMs": 1644
+    },
+    "11": {
+      "question": "GraphQL fetches 50 users, then 50 separate Company queries — the N+1 problem. Standard fix?",
+      "correct": 3,
+      "options": [
+        "Force the client to make separate REST calls.",
+        "None of the above.",
+        "Switch PostgreSQL to MongoDB.",
+        "Use Facebook's DataLoader to batch + cache the 50 calls into a single SELECT ... WHERE id IN (...).",
+        "Add a composite index on the Company table."
+      ],
+      "timeMs": 130
+    },
+    "12": {
+      "question": "WebSocket chat drops after exactly 60s idle with no errors. Most likely cause?",
+      "correct": 2,
+      "options": [
+        "Browser GC deleted the WebSocket variable.",
+        "None of the above.",
+        "An intermediate reverse proxy (Nginx / AWS LB) closed the idle TCP connection because no Ping/Pong heartbeats were sent.",
+        "React component unmounted in the background.",
+        "ws library has a hardcoded 60s cap."
+      ],
+      "timeMs": 125
+    },
+    "13": {
+      "question": "POST /refunds — client may retry on timeout, risking double refund. Safe API design?",
+      "correct": 0,
+      "options": [
+        "Require a unique Idempotency-Key header; if a successful txn with that key exists, return the cached response without re-processing.",
+        "Disable the user's account on duplicate payload.",
+        "None of the above.",
+        "Change to GET (naturally idempotent).",
+        "Rely on the DB primary key auto-increment."
+      ],
+      "timeMs": 1362
+    },
+    "14": {
+      "question": "Node worker uses a PG pool. After exactly 10 jobs it freezes (no CPU). What coding error?",
+      "correct": 0,
+      "options": [
+        "Forgot pool.release() / client.end() inside a finally block — connection pool exhausted.",
+        "None of the above.",
+        "Queue payloads exceed 16MB.",
+        "PostgreSQL ran out of disk space.",
+        "Worker built with an older V8."
+      ],
+      "timeMs": 3550
+    },
+    "15": {
+      "question": "POST /users/batch with 1000 users; 999 valid, 1 invalid email. Most appropriate RESTful behavior?",
+      "correct": 0,
+      "options": [
+        "Insert the 999 and return 207 Multi-Status with per-item 201 Created / 400 Bad Request details.",
+        "Halt, return 500, trigger PagerDuty.",
+        "None of the above.",
+        "Rollback all and return 400 so the client knows what failed.",
+        "Insert the 999, silently ignore the bad one, return 200."
+      ],
+      "timeMs": 156
+    }
+  }
+}
