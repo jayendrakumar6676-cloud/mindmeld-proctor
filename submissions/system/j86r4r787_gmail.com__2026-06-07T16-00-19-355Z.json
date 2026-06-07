@@ -1,0 +1,273 @@
+{
+  "kind": "mcq",
+  "examId": "system",
+  "candidateEmail": "j86r4r787@gmail.com",
+  "candidateName": "klgjbhjg",
+  "submittedAt": 1780848019355,
+  "violations": 1,
+  "score": 0,
+  "total": 40,
+  "accuracy": 0,
+  "correctCount": 0,
+  "attemptedCount": 0,
+  "durationMs": 18777,
+  "timePerQuestion": {
+    "1": 674,
+    "2": 640,
+    "4": 606,
+    "5": 597,
+    "6": 3590,
+    "7": 6390,
+    "8": 818,
+    "10": 783,
+    "12": 580,
+    "13": 622,
+    "14": 608,
+    "15": 766,
+    "18": 855,
+    "19": 587,
+    "20": 661
+  },
+  "answers": {
+    "1": {
+      "question": "Network Protocols: TCP Head-of-Line Blocking. In an HTTP/2 architecture, multiple client requests are multiplexed over a single TCP connection to an Express API Gateway. If a single packet containing a partial payload for Request A is lost in transit, what happens to Request B, which is fully received and queued behind it?",
+      "correct": 1,
+      "options": [
+        "None of the above.",
+        "Request B is blocked and cannot be processed until the missing packet for Request A is retransmitted and acknowledged, due to TCP's strict ordered delivery.",
+        "Request B is processed immediately because HTTP/2 streams are independent at the application layer.",
+        "The API Gateway drops both requests and forces the client to initiate a new TLS handshake.",
+        "The TCP connection automatically falls back to HTTP/1.1 to process Request B."
+      ],
+      "timeMs": 674
+    },
+    "2": {
+      "question": "Database Storage Engines: Write Amplification. You are designing a high-throughput time-series database. You choose a Log-Structured Merge (LSM) Tree over a traditional B-Tree. Which of the following is a primary trade-off of using an LSM-Tree?",
+      "correct": 3,
+      "options": [
+        "LSM-Trees suffer from extreme Write Amplification, burning out SSDs much faster than B-Trees.",
+        "LSM-Trees provide faster read performance but slower write performance compared to B-Trees.",
+        "None of the above.",
+        "LSM-Trees require continuous background \"compaction\" processes that can cause periodic latency spikes during read operations.",
+        "LSM-Trees cannot support range queries or sequential scans."
+      ],
+      "timeMs": 640
+    },
+    "3": {
+      "question": "Load Balancing: Layer 4 vs Layer 7. A high-frequency trading platform requires absolute minimum latency. The load balancer does not need to inspect HTTP headers, cookie data, or URL paths; it only needs to distribute traffic based on IP and Port. Which load balancing strategy should be implemented?",
+      "correct": 2,
+      "options": [
+        "None of the above.",
+        "Application-Level Anycast",
+        "Layer 4 Transport Level Load Balancing",
+        "Layer 7 HTTP Reverse Proxy",
+        "DNS Round Robin with low TTL"
+      ],
+      "timeMs": 0
+    },
+    "4": {
+      "question": "Distributed Data: The PACELC Theorem. The CAP theorem states you must choose between Consistency and Availability during a Partition (P). The PACELC theorem extends this. According to PACELC, what trade-off must a distributed database (like Cassandra or DynamoDB) make during normal operation when there is Else (E) no network partition?",
+      "correct": 4,
+      "options": [
+        "Consistency (C) versus Partition Tolerance (P)",
+        "None of the above.",
+        "Availability (A) versus Durability (D)",
+        "Partition Tolerance (P) versus Latency (L)",
+        "Latency (L) versus Consistency (C)"
+      ],
+      "timeMs": 606
+    },
+    "5": {
+      "question": "Microservices Architecture: CQRS. You implement the Command Query Responsibility Segregation (CQRS) pattern in a microservices architecture. The \"Command\" database is a heavily normalized PostgreSQL instance, and the \"Query\" database is a denormalized ElasticSearch index. What is the most significant architectural challenge introduced by this pattern?",
+      "correct": 4,
+      "options": [
+        "The API Gateway must execute Two-Phase Commits (2PC) across both databases for every read request.",
+        "The system can no longer handle concurrent writes.",
+        "ElasticSearch cannot be horizontally scaled if it is used exclusively for queries.",
+        "None of the above.",
+        "You must handle Eventual Consistency between the Command and Query databases, meaning users might read stale data immediately after a write."
+      ],
+      "timeMs": 597
+    },
+    "6": {
+      "question": "Message Brokers: Kafka Consumer Groups. Your Express application consumes events from an Apache Kafka topic with 10 partitions. You scale your Node.js consumer microservice to 12 instances within the same Consumer Group. What happens to the event processing?",
+      "correct": 3,
+      "options": [
+        "None of the above.",
+        "All 12 instances will process messages concurrently, increasing throughput by 20%.",
+        "A Split-Brain scenario occurs, causing duplicate message processing across all instances.",
+        "10 instances will process messages (one partition each), and 2 instances will sit completely idle.",
+        "The Kafka broker will dynamically split two partitions to ensure all 12 instances receive data."
+      ],
+      "timeMs": 3590
+    },
+    "7": {
+      "question": "API Design: gRPC vs REST. You are replacing internal JSON-over-HTTP REST APIs with gRPC between backend microservices. Which of the following is a fundamental difference that provides gRPC its massive performance boost?",
+      "correct": 3,
+      "options": [
+        "gRPC uses UDP instead of TCP, eliminating handshake latency.",
+        "gRPC maintains stateful connections, eliminating the need for a database.",
+        "gRPC automatically implements the Circuit Breaker pattern at the network layer.",
+        "gRPC relies on Protocol Buffers (Protobuf), which transmits data as highly compressed, strongly-typed binary rather than human-readable text.",
+        "None of the above."
+      ],
+      "timeMs": 6390
+    },
+    "8": {
+      "question": "Distributed Transactions: Two-Phase Commit (2PC) Blocking. In a distributed SQL database, a Two-Phase Commit (2PC) is used to guarantee atomicity across multiple nodes. The Coordinator node sends a \"Prepare\" message to all Participant nodes, and they all reply \"Yes.\" Before the Coordinator can send the \"Commit\" message, the Coordinator node crashes and goes offline. What state are the Participant nodes in?",
+      "correct": 2,
+      "options": [
+        "They elect a new Coordinator from among themselves and immediately commit.",
+        "None of the above.",
+        "They are blocked and must hold their database locks indefinitely until the Coordinator recovers or an administrator intervenes.",
+        "They automatically abort and rollback the transaction after a 5-second timeout.",
+        "They silently drop the transaction and accept new writes."
+      ],
+      "timeMs": 818
+    },
+    "9": {
+      "question": "Caching Patterns: Cache Stampede (Thundering Herd). A highly complex, cached API response expires. Suddenly, 10,000 concurrent client requests hit the cache, find it empty (Cache Miss), and all 10,000 requests simultaneously query the backend database, crashing it. Which mitigation strategy actively prevents this without serving stale data indefinitely?",
+      "correct": 2,
+      "options": [
+        "Switching from Memcached to Redis.",
+        "None of the above.",
+        "Probabilistic Early Expiration (Cache-Busting) or Mutex Locks (Request Coalescing).",
+        "Increasing the cache TTL to 30 days.",
+        "Implementing a Least Recently Used (LRU) eviction policy."
+      ],
+      "timeMs": 0
+    },
+    "10": {
+      "question": "Client-Server Networking: Server-Sent Events (SSE) vs WebSockets. A sports application features a live scoreboard. The server pushes updates to the client every 500ms. The client never sends any data back to the server other than the initial connection request. Why might Server-Sent Events (SSE) be architecturally superior to WebSockets in this specific scenario?",
+      "correct": 4,
+      "options": [
+        "None of the above.",
+        "WebSockets cannot transmit binary data, making them unsuitable for live scores.",
+        "SSE is bidirectional, whereas WebSockets are strictly unidirectional.",
+        "SSE utilizes UDP, making it immune to Head-of-Line blocking.",
+        "SSE runs over standard HTTP/1.1 or HTTP/2, natively supporting multiplexing, standard firewalls, and built-in automatic reconnections without custom transport layers."
+      ],
+      "timeMs": 783
+    },
+    "11": {
+      "question": "Migration Strategies: Strangler Fig Pattern. You are migrating a massive legacy monolithic application to a modern microservices architecture. Instead of a \"Big Bang\" rewrite, you implement the Strangler Fig pattern. How does this pattern operate at the system level?",
+      "correct": 4,
+      "options": [
+        "The legacy database is replicated to a cloud provider, and the monolith is forced to read from the replica.",
+        "The monolith's codebase is automatically transpiled from older languages (like Java) into Node.js using an LLM.",
+        "None of the above.",
+        "Traffic is artificially restricted (throttled) to the monolith to force users onto the new system.",
+        "A proxy (API Gateway) is placed in front of the monolith. As new microservices are built, the proxy gradually routes specific URL paths away from the monolith to the new services until the monolith can be safely decommissioned."
+      ],
+      "timeMs": 0
+    },
+    "12": {
+      "question": "Database Isolation: Phantom Reads. A system uses a relational database with a Repeatable Read isolation level. Transaction A queries SELECT * FROM Orders WHERE status = 'PENDING' and gets 5 results. Transaction B simultaneously inserts a new order with a 'PENDING' status and commits. Transaction A runs the exact same query again. Under standard Repeatable Read (without Next-Key locking), what anomaly occurs?",
+      "correct": 3,
+      "options": [
+        "Dirty Read: Transaction A sees uncommitted data.",
+        "Non-Repeatable Read: An existing row Transaction A was viewing changes its values.",
+        "None of the above.",
+        "Phantom Read: Transaction A suddenly sees 6 results instead of 5, as a new row matches the range condition.",
+        "Write Skew: Transaction A overwrites Transaction B's data."
+      ],
+      "timeMs": 580
+    },
+    "13": {
+      "question": "High Availability: Split-Brain & Quorum. A MongoDB cluster consists of 2 nodes across 2 data centers (DC1 and DC2) to ensure geographic redundancy. The network link between the data centers goes down. Both nodes assume the other is dead and promote themselves to Primary, accepting writes. When the network is restored, data is hopelessly corrupted. How is this \"Split-Brain\" prevented in modern distributed systems?",
+      "correct": 4,
+      "options": [
+        "By configuring both nodes to automatically shut down if ping times exceed 500ms.",
+        "By implementing a strict Last-Write-Wins (LWW) conflict resolution algorithm.",
+        "By manually pausing the database during network outages.",
+        "None of the above.",
+        "By ensuring the cluster always has an odd number of voting nodes (e.g., 3) and requiring a strict majority (Quorum) to elect a Primary or accept writes."
+      ],
+      "timeMs": 622
+    },
+    "14": {
+      "question": "Storage Architecture: Object vs Block Storage. You are designing an architecture for a video streaming platform like Netflix. You need to store petabytes of immutable, massive video files that will be served directly to Edge CDNs. Which storage architecture is appropriate?",
+      "correct": 4,
+      "options": [
+        "None of the above.",
+        "File Storage (e.g., AWS EFS) because it allows thousands of servers to mount the same OS directory natively.",
+        "Relational Database BLOBs because it ensures strict ACID compliance for video playback.",
+        "Block Storage (e.g., AWS EBS) because it allows byte-level modification of the video files.",
+        "Object Storage (e.g., AWS S3) because it scales infinitely, stores data as immutable objects with rich metadata, and provides native HTTP access."
+      ],
+      "timeMs": 608
+    },
+    "15": {
+      "question": "Message Reliability: Dead Letter Queues (DLQ). An asynchronous worker process consumes messages from a RabbitMQ queue to send confirmation emails. Due to a bug in the email formatting code, a specific message repeatedly crashes the worker. The broker continuously requeues the message, crashing the worker in an infinite loop (a \"Poison Pill\"). How is this resolved at the system level?",
+      "correct": 0,
+      "options": [
+        "Configure the broker's retry policy to route the message to a Dead Letter Queue (DLQ) after a threshold of failed attempts, allowing the worker to process the rest of the queue.",
+        "Switch from RabbitMQ to a purely synchronous HTTP REST architecture.",
+        "Configure the worker to silently acknowledge (ACK) and delete all failed messages.",
+        "Increase the worker's RAM allocation.",
+        "None of the above."
+      ],
+      "timeMs": 766
+    },
+    "16": {
+      "question": "Security & State: Stateful vs Stateless JWT Revocation. You use stateless JSON Web Tokens (JWT) for API authentication. A user's account is compromised, and you need to instantly invalidate their active 60-minute JWT. Because JWTs are stateless and validated via cryptography on the API server, how do you revoke it before expiration without creating a database bottleneck?",
+      "correct": 0,
+      "options": [
+        "Maintain a high-speed, centralized \"Deny List\" of revoked Token IDs (jti) in an in-memory datastore like Redis, checked by the Gateway on every request.",
+        "Send an HTTP DELETE request to the client's browser to wipe their local storage.",
+        "You cannot revoke a stateless JWT; you must wait the full 60 minutes for it to expire.",
+        "None of the above.",
+        "Change the server's master signing secret, which instantly invalidates all JWTs for all users globally."
+      ],
+      "timeMs": 0
+    },
+    "17": {
+      "question": "Scaling Databases: Consistent Hashing. You have 4 Redis cache servers. You route keys based on hash(key) % 4. Server #4 crashes. The algorithm changes to hash(key) % 3. Suddenly, 75% of your cached keys route to the wrong servers, causing a massive cache miss. Which concept solves this by mapping nodes and keys to a virtual ring, ensuring only a small fraction of keys are remapped when a node dies?",
+      "correct": 3,
+      "options": [
+        "Cryptographic Hashing (SHA-256)",
+        "Round-Robin Hashing",
+        "None of the above.",
+        "Consistent Hashing",
+        "Linear Probing"
+      ],
+      "timeMs": 0
+    },
+    "18": {
+      "question": "System Resiliency: Circuit Breaker States. An API Gateway utilizes a Circuit Breaker pattern to protect a failing downstream microservice. The microservice recovers and comes back online. The Circuit Breaker transitions from the \"Open\" (failing fast) state to a testing state where it allows a limited number of requests through to verify recovery. What is this state called?",
+      "correct": 0,
+      "options": [
+        "Half-Open",
+        "Dead-Letter",
+        "None of the above.",
+        "Closed",
+        "Throttled"
+      ],
+      "timeMs": 855
+    },
+    "19": {
+      "question": "Rate Limiting: Token Bucket Burst Capacity. An API rate limiter uses the Token Bucket algorithm. The bucket holds a maximum of 10 tokens and is refilled at a rate of 1 token per second. A user has not made a request in 5 minutes. The user suddenly sends 15 concurrent requests. What happens?",
+      "correct": 1,
+      "options": [
+        "The requests are processed strictly at 1 request per second for 15 seconds.",
+        "10 requests are processed immediately (the burst), and 5 requests are rejected (HTTP 429).",
+        "All 15 requests are processed immediately because the user has built up 300 seconds of unused capacity.",
+        "All 15 requests are rejected because they exceed the 1-per-second refill rate.",
+        "None of the above."
+      ],
+      "timeMs": 587
+    },
+    "20": {
+      "question": "Database Locks: Optimistic vs Pessimistic Concurrency. In a high-contention ticketing system (like buying concert tickets), thousands of users are trying to buy the same seat simultaneously. If you use Optimistic Concurrency Control (OCC) using version numbers, what is the primary system drawback compared to Pessimistic Locking?",
+      "correct": 2,
+      "options": [
+        "None of the above.",
+        "OCC requires all users to maintain an active WebSocket connection.",
+        "Under massive contention, OCC results in a high volume of aborted/failed transactions (HTTP 409 Conflicts), forcing the application layer to handle heavy retry logic.",
+        "OCC places exclusive locks on the database rows, completely freezing the database for other readers.",
+        "OCC strictly violates ACID isolation guarantees."
+      ],
+      "timeMs": 661
+    }
+  }
+}

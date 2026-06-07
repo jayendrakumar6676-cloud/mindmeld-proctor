@@ -1,0 +1,408 @@
+{
+  "kind": "mcq",
+  "examId": "aptitude",
+  "candidateEmail": "j86r4r787@gmail.com",
+  "candidateName": "klgjbhjg",
+  "submittedAt": 1780848064708,
+  "violations": 0,
+  "score": 0,
+  "total": 60,
+  "accuracy": 0,
+  "correctCount": 0,
+  "attemptedCount": 0,
+  "durationMs": 38434,
+  "timePerQuestion": {
+    "1": 888,
+    "2": 704,
+    "3": 715,
+    "4": 2321,
+    "5": 746,
+    "6": 831,
+    "7": 1537,
+    "8": 725,
+    "9": 707,
+    "10": 1098,
+    "11": 783,
+    "12": 1024,
+    "13": 808,
+    "14": 735,
+    "15": 733,
+    "16": 1475,
+    "17": 2518,
+    "18": 876,
+    "19": 6460,
+    "20": 1317,
+    "21": 829,
+    "22": 819,
+    "23": 1540,
+    "24": 715,
+    "25": 2527,
+    "26": 1313,
+    "27": 857,
+    "28": 1239,
+    "29": 799,
+    "30": 795
+  },
+  "answers": {
+    "1": {
+      "question": "In an exhaustive macroeconomic analysis of post-industrial agrarian supply chains, researchers observed a profound operational paradox: while the systemic implementation of high-frequency automated harvesting sub-routines universally escalated the absolute raw material yield across all tested demographics, the aggregate profitability metrics of the adopting cooperatives paradoxically demonstrated a statistically significant negative correlation over a fiscal quadriennium. Further forensic market auditing revealed that the artificially accelerated yield vectors induced a hyper-localized market saturation, thereby completely destabilizing the equilibrium of the localized price-elasticity curve. Based strictly on the empirical data and causal relationships explicitly articulated in this synopsis, which of the following extrapolations represents the most logically rigorous deduction?",
+      "correct": 4,
+      "options": [
+        "The deployment of automated harvesting sub-routines is inherently detrimental to the long-term ecological sustainability of agrarian sectors.",
+        "None of the above.",
+        "Hyper-localized market saturation is an inevitable, unavoidable consequence of all technological modernization efforts within the agricultural industry.",
+        "The aggregate financial deficit incurred by the cooperatives is directly and exclusively attributable to the exorbitant mechanical maintenance costs of the automated systems.",
+        "A quantifiable escalation in raw material output does not unconditionally guarantee a corresponding proportional increase in the aggregate profitability of the producing entity."
+      ],
+      "timeMs": 888
+    },
+    "2": {
+      "question": "Algorithm Alpha, operating in isolation, requires 24 continuous hours to process one petabyte of data. Algorithm Beta requires 36 hours for the same volume. If both algorithms are executed concurrently for exactly 8 hours, what fraction of the one-petabyte dataset will remain unprocessed?",
+      "correct": 0,
+      "options": [
+        "4/9",
+        "None of the above.",
+        "5/9",
+        "7/18",
+        "11/18"
+      ],
+      "timeMs": 704
+    },
+    "3": {
+      "question": "A regulatory compliance officer is auditing a designated consumption zone governed by a strict statutory mandate: 'Any biological entity engaging in the ingestion of ethanol-based beverages must possess a verified chronological age strictly exceeding 18 solar years.' The officer observes four entities: Entity Alpha is actively consuming an ethanol-based beverage; Entity Beta is consuming a non-alcoholic botanical extract; Entity Gamma's official identification verifies a chronological age of precisely 16 solar years; and Entity Delta possesses documentation proving an age of 22 solar years. To rigorously prove that no statutory violations are occurring, the officer must execute a state-verification procedure on which precise combination of entities?",
+      "correct": 2,
+      "options": [
+        "Entity Alpha, Beta, Gamma, and Delta",
+        "Only Entity Alpha, Gamma, and Delta",
+        "Only Entity Alpha and Entity Gamma",
+        "Only Entity Alpha",
+        "None of the above."
+      ],
+      "timeMs": 715
+    },
+    "4": {
+      "question": "Consider a continuous scalar variable x in the reals satisfying x^2 + x - 1 = 0. Deduce the exact numerical evaluation of the higher-order expression x^4 + 1/x^4.",
+      "correct": 3,
+      "options": [
+        "None of the above.",
+        "1",
+        "5",
+        "7",
+        "9"
+      ],
+      "timeMs": 2321
+    },
+    "5": {
+      "question": "During a high-altitude expedition, five researchers P, Q, R, S, T must arrange their sleeping bags in a strictly linear adjacent sequence. P, Q, and T strictly mandate non-adjacent placement relative to R. Furthermore, P and S expressly prohibit any proximity to Q's immediate left or right coordinates. Identify the exact left-to-right positional sequence.",
+      "correct": 0,
+      "options": [
+        "R, S, P, T, Q",
+        "None of the above.",
+        "P, S, R, T, Q",
+        "Q, S, P, T, R",
+        "R, P, S, T, Q"
+      ],
+      "timeMs": 746
+    },
+    "6": {
+      "question": "A primary containment vessel holds exactly 40 cubic meters of brine at a 15% volumetric salinity concentration. Due to a prolonged thermal exposure cycle, exactly 16 cubic meters of the H2O solvent is evaporated, leaving the entire precipitate mass suspended. Determine the updated percentage salinity of the concentrated solution.",
+      "correct": 1,
+      "options": [
+        "None of the above.",
+        "25%",
+        "20%",
+        "31.5%",
+        "22.5%"
+      ],
+      "timeMs": 831
+    },
+    "7": {
+      "question": "An algorithmic quantitative trading protocol liquidated a digital asset, realizing an 18% financial deficit relative to its initial fiat acquisition cost. Had the asset been liquidated at a price point exactly 680 INR higher, the transaction would have yielded a 16% fiscal surplus instead of a deficit. Determine the absolute initial fiat acquisition cost.",
+      "correct": 2,
+      "options": [
+        "3,400 INR",
+        "2,500 INR",
+        "2,000 INR",
+        "None of the above.",
+        "1,800 INR"
+      ],
+      "timeMs": 1537
+    },
+    "8": {
+      "question": "u + v = 7 and u*v = 10. Determine u^3 + v^3.",
+      "correct": 4,
+      "options": [
+        "343",
+        "None of the above.",
+        "125",
+        "217",
+        "133"
+      ],
+      "timeMs": 725
+    },
+    "9": {
+      "question": "A cube painted on the exterior is partitioned into 27 isometric sub-cubes. How many have paint on exactly two faces?",
+      "correct": 3,
+      "options": [
+        "8",
+        "None of the above.",
+        "4",
+        "12",
+        "24"
+      ],
+      "timeMs": 707
+    },
+    "10": {
+      "question": "Despite the investigator's assertion that the new framework would establish a transparent, universally applicable, and ________ paradigm for predicting anomalous particle trajectories, the publication was so densely layered with contradictory axioms and recursive logic loops that it only served to ________ the very phenomena it was engineered to clarify.",
+      "correct": 1,
+      "options": [
+        "irrefutable ... synthesize",
+        "unambiguous ... obfuscate",
+        "esoteric ... propagate",
+        "convoluted ... elucidate",
+        "None of the above."
+      ],
+      "timeMs": 1098
+    },
+    "11": {
+      "question": "5 modules (M1..M5, must stay consecutive in order) + 7 distinguishable chassis placed linearly. Total unique configurations?",
+      "correct": 4,
+      "options": [
+        "5,040",
+        "39,916,800",
+        "None of the above.",
+        "3,628,800",
+        "40,320"
+      ],
+      "timeMs": 783
+    },
+    "12": {
+      "question": "x + y = 32, |x - y| = 18. Compute xy.",
+      "correct": 1,
+      "options": [
+        "400",
+        "175",
+        "576",
+        "225",
+        "None of the above."
+      ],
+      "timeMs": 1024
+    },
+    "13": {
+      "question": "5^(2y - 1) = 3125. Evaluate 4^(y + 2).",
+      "correct": 0,
+      "options": [
+        "1024",
+        "16384",
+        "256",
+        "4096",
+        "None of the above."
+      ],
+      "timeMs": 808
+    },
+    "14": {
+      "question": "Current population is 1,102,500 after 2 years of compounding at 5%/yr. Baseline 24 months prior?",
+      "correct": 0,
+      "options": [
+        "1,000,000",
+        "1,050,000",
+        "995,000",
+        "1,025,000",
+        "None of the above."
+      ],
+      "timeMs": 735
+    },
+    "15": {
+      "question": "Two locomotives leave the same origin at 07:00; one North at 80 km/h, one South at 100 km/h. When is the separation exactly 540 km?",
+      "correct": 1,
+      "options": [
+        "None of the above.",
+        "10:00",
+        "11:00",
+        "09:00",
+        "11:30"
+      ],
+      "timeMs": 733
+    },
+    "16": {
+      "question": "Cohort of 250: 130 react to X, 110 react to Y, 40 react to both. How many are asymptomatic?",
+      "correct": 4,
+      "options": [
+        "70",
+        "None of the above.",
+        "30",
+        "90",
+        "50"
+      ],
+      "timeMs": 1475
+    },
+    "17": {
+      "question": "Alpha has active:solvent = 1:3; Beta 1:4. Blended 2:3 by volume. Alpha alone gives 20% profit at its per-liter price. Mixture is priced equal to Alpha (solvent free). Profit/loss % on mixture?",
+      "correct": 1,
+      "options": [
+        "25.55% profit",
+        "36.36% profit",
+        "None of the above.",
+        "18.18% deficit",
+        "42.00% profit"
+      ],
+      "timeMs": 2518
+    },
+    "18": {
+      "question": "A UAV goes 24 km North, yaws 90° starboard (East) and goes 7 km. Displacement magnitude and heading?",
+      "correct": 0,
+      "options": [
+        "25 km, NE",
+        "31 km, NE",
+        "25 km, NW",
+        "31 km, NW",
+        "None of the above."
+      ],
+      "timeMs": 876
+    },
+    "19": {
+      "question": "12,000 INR invested at 5% p.a. compounded annually for 3 years. Total accumulated interest?",
+      "correct": 0,
+      "options": [
+        "1,891.50",
+        "None of the above.",
+        "1,925.25",
+        "1,800.00",
+        "2,050.00"
+      ],
+      "timeMs": 6460
+    },
+    "20": {
+      "question": "20 microprocessors (8 defective, 12 functional). Draw 3 without replacement. P(all 3 functional)?",
+      "correct": 4,
+      "options": [
+        "12/57",
+        "27/125",
+        "None of the above.",
+        "33/95",
+        "11/57"
+      ],
+      "timeMs": 1317
+    },
+    "21": {
+      "question": "A 200 m maglev at 144 km/h traverses a 600 m tunnel. Seconds from nose entering to tail exiting?",
+      "correct": 0,
+      "options": [
+        "20",
+        "22.5",
+        "15",
+        "None of the above.",
+        "25"
+      ],
+      "timeMs": 829
+    },
+    "22": {
+      "question": "A circular wafer's radius increases by 15%. % increase in area?",
+      "correct": 3,
+      "options": [
+        "15.00%",
+        "35.50%",
+        "30.00%",
+        "32.25%",
+        "None of the above."
+      ],
+      "timeMs": 819
+    },
+    "23": {
+      "question": "Data fluctuations defy all known frameworks — impossible to rationalize, interpret, or articulate. Best single word?",
+      "correct": 1,
+      "options": [
+        "None of the above.",
+        "Incomprehensible",
+        "Infallible",
+        "Indelible",
+        "Inextricable"
+      ],
+      "timeMs": 1540
+    },
+    "24": {
+      "question": "Despite a media campaign of baseless allegations, the magistrate's reputation proved completely ________.",
+      "correct": 2,
+      "options": [
+        "uncertain",
+        "resolved",
+        "undiminished",
+        "None of the above.",
+        "illegal"
+      ],
+      "timeMs": 715
+    },
+    "25": {
+      "question": "Acute angle between hour and minute hands at 08:30?",
+      "correct": 4,
+      "options": [
+        "None of the above.",
+        "85°",
+        "90°",
+        "60°",
+        "75°"
+      ],
+      "timeMs": 2527
+    },
+    "26": {
+      "question": "x + y = 5 and x*y = 6. Find x^3 + y^3.",
+      "correct": 2,
+      "options": [
+        "215",
+        "None of the above.",
+        "35",
+        "125",
+        "91"
+      ],
+      "timeMs": 1313
+    },
+    "27": {
+      "question": "Statement: 'Ban diesel vehicles older than 10 years to improve air quality.' I: Older diesel vehicles pollute significantly. II: Banning is the only way to improve air quality. Implicit?",
+      "correct": 2,
+      "options": [
+        "Neither",
+        "None of the above.",
+        "Only I",
+        "Both I and II",
+        "Only II"
+      ],
+      "timeMs": 857
+    },
+    "28": {
+      "question": "Bag with 5 red, 7 blue balls. Draw 2 without replacement. P(both red)?",
+      "correct": 2,
+      "options": [
+        "5/12",
+        "25/144",
+        "5/33",
+        "10/33",
+        "None of the above."
+      ],
+      "timeMs": 1239
+    },
+    "29": {
+      "question": "Paper folded in half horizontally then vertically. One circular hole punched through all layers. How many holes when fully unfolded?",
+      "correct": 4,
+      "options": [
+        "2",
+        "None of the above.",
+        "8",
+        "1",
+        "4"
+      ],
+      "timeMs": 799
+    },
+    "30": {
+      "question": "Radius of a circle increased by 20%. % increase in area?",
+      "correct": 3,
+      "options": [
+        "None of the above.",
+        "40%",
+        "20%",
+        "44%",
+        "400%"
+      ],
+      "timeMs": 795
+    }
+  }
+}

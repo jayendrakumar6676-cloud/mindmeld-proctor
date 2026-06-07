@@ -1,0 +1,212 @@
+{
+  "kind": "mcq",
+  "examId": "technical",
+  "candidateEmail": "j86r4r787@gmail.com",
+  "candidateName": "klgjbhjg",
+  "submittedAt": 1780847991379,
+  "violations": 0,
+  "score": 0,
+  "total": 30,
+  "accuracy": 0,
+  "correctCount": 0,
+  "attemptedCount": 0,
+  "durationMs": 17909,
+  "timePerQuestion": {
+    "1": 797,
+    "2": 660,
+    "3": 881,
+    "4": 561,
+    "5": 797,
+    "6": 702,
+    "8": 666,
+    "9": 1365,
+    "10": 719,
+    "11": 5850,
+    "12": 1555,
+    "13": 2008,
+    "14": 596,
+    "15": 752
+  },
+  "answers": {
+    "1": {
+      "question": "Debugging: Express.js Asynchronous Error Handling. In a legacy Express v4.x application, you write the following route: app.get('/data', async (req, res, next) => { const data = await fetchFromDB(); res.json(data); }). If fetchFromDB() throws an error or rejects the promise, what happens to the Express server?",
+      "correct": 0,
+      "options": [
+        "The request hangs indefinitely until it times out, and an UnhandledPromiseRejection warning is logged, potentially crashing the Node process.",
+        "Express intercepts the rejected promise and returns a 404 Not Found.",
+        "The client receives a generic 500 Internal Server Error response automatically.",
+        "The error is automatically caught by Express and passed to the global (err, req, res, next) error-handling middleware.",
+        "None of the above."
+      ],
+      "timeMs": 797
+    },
+    "2": {
+      "question": "API Design: Cursor vs. Offset Pagination. You are building an API endpoint to fetch a list of transactions (GET /transactions). The database has 50 million records. A user requests page 50,000 using ?limit=100&offset=4999900. The query takes 8 seconds to execute. What is the standard API design solution to resolve this performance degradation?",
+      "correct": 1,
+      "options": [
+        "Cache the entire 50 million record dataset in Redis to speed up the offset calculation.",
+        "Switch to Cursor-based pagination (e.g., ?limit=100&after=cursor_id), which allows the database to use an index to jump directly to the starting record instead of scanning and skipping millions of rows.",
+        "None of the above.",
+        "Change the database query to use a SELECT COUNT(*) to pre-calculate all pages before fetching the offset.",
+        "Increase the limit to 10,000 so the client has to make fewer total pagination requests."
+      ],
+      "timeMs": 660
+    },
+    "3": {
+      "question": "Integration: Webhook Security & Replay Attacks. Your Node.js API receives webhooks from Stripe whenever a customer makes a payment. An attacker intercepts a valid webhook payload and resends it to your endpoint 500 times, attempting to credit an account multiple times (a Replay Attack). How do you fundamentally secure the webhook integration?",
+      "correct": 2,
+      "options": [
+        "By validating the JSON payload structure against a TypeScript interface before processing.",
+        "By checking if the HTTP method is strictly POST and rejecting PUT requests.",
+        "By verifying the cryptographic signature in the Stripe-Signature header, which contains a timestamp, and rejecting any payloads older than a few minutes.",
+        "By configuring your firewall to only accept webhooks from IP addresses located in the United States.",
+        "None of the above."
+      ],
+      "timeMs": 881
+    },
+    "4": {
+      "question": "Debugging: Node.js Memory Leaks (Closures). Your Node.js server crashes with an Out-Of-Memory (OOM) error every few days. After analyzing a heap snapshot, you notice millions of instances of a massive array are trapped in memory. Which of the following JavaScript patterns is the most likely culprit?",
+      "correct": 1,
+      "options": [
+        "Utilizing recursive functions without a strict base case, causing a Call Stack Exceeded error.",
+        "An event listener attached to a long-lived object (like the global process or a server instance) referencing variables from its outer scope, preventing the garbage collector from freeing them.",
+        "None of the above.",
+        "Forgetting to use the new keyword when instantiating an ES6 class.",
+        "Using JSON.parse() on a very large API response payload."
+      ],
+      "timeMs": 561
+    },
+    "5": {
+      "question": "API Design: Optimistic Concurrency Control (ETags). Two users are updating the same Wiki article via your PUT /articles/123 API endpoint. To prevent Lost Updates (where User B blindly overwrites User A's changes), you implement Optimistic Concurrency Control. Which HTTP headers should your API utilize to achieve this?",
+      "correct": 0,
+      "options": [
+        "The server sends an ETag (a hash of the resource). The client includes this hash in the If-Match header during the PUT. The server rejects the request with a 412 Precondition Failed if the hashes differ.",
+        "The server sends an Authorization header, and the client responds with X-Forwarded-For.",
+        "None of the above.",
+        "The server sends an ETag header. The client sends a Cache-Control: no-cache header on the next request.",
+        "The server implements a Strict-Transport-Security header to encrypt the payload."
+      ],
+      "timeMs": 797
+    },
+    "6": {
+      "question": "Integration: Resiliency and Exponential Backoff. Your API integrates with an external, third-party logistics API that frequently rate-limits you with 429 Too Many Requests or drops connections with 503 Service Unavailable. What is the industry-standard coding pattern to integrate robustly with this flaky service?",
+      "correct": 4,
+      "options": [
+        "Wrap the API call in an asynchronous setTimeout of exactly 60 seconds before retrying once.",
+        "Immediately return a 200 OK to your client and drop the logistics request entirely to ensure your API remains fast.",
+        "None of the above.",
+        "Implement a while(true) loop that aggressively retries the request every 10 milliseconds until it succeeds.",
+        "Implement retries using \"Exponential Backoff with Jitter,\" progressively increasing the wait time between retries and adding randomness to prevent synchronized Thundering Herd attacks on the third-party service."
+      ],
+      "timeMs": 702
+    },
+    "7": {
+      "question": "Debugging: CORS Preflight Failures. A frontend React app running on http://localhost:3000 attempts to make a POST request with a custom X-Tenant-ID header to an API on http://api.example.com. The browser blocks the request, stating the CORS preflight failed. What exactly is failing at the network level?",
+      "correct": 1,
+      "options": [
+        "The React application failed to include credentials: 'include' in the Axios configuration.",
+        "The browser sends an OPTIONS request first, but the server's response is missing the Access-Control-Allow-Headers: X-Tenant-ID header, causing the browser to block the actual POST.",
+        "The Express server is missing the body-parser middleware, so it cannot read the JSON payload in the preflight request.",
+        "None of the above.",
+        "The server rejected the request because the frontend is not using HTTPS."
+      ],
+      "timeMs": 0
+    },
+    "8": {
+      "question": "Integration: Large File Proxying & Streams. Your API acts as a middleman. Clients request a 5GB video file from your Express server, and your server fetches it from an internal AWS S3 bucket. If you use const file = await s3.getObject(); res.send(file.body);, the Node server crashes. How must you rewrite this integration?",
+      "correct": 2,
+      "options": [
+        "Increase the Node heap limit to 8GB using --max-old-space-size=8192.",
+        "None of the above.",
+        "Pipe the S3 readable stream directly into the Express response writable stream using s3Stream.pipe(res), ensuring data chunks are forwarded without buffering the whole file in RAM.",
+        "Compress the file into a ZIP archive using the zlib module before sending it to the client.",
+        "Download the 5GB file to the Node server's local hard drive first, then use fs.readFileSync to send it."
+      ],
+      "timeMs": 666
+    },
+    "9": {
+      "question": "Debugging: Event Loop Blocking. Your API has an endpoint that processes a large array of complex mathematical calculations synchronously. When a user hits this endpoint, all other connected clients experience massive latency, and health-check pings fail. Why does this happen?",
+      "correct": 2,
+      "options": [
+        "None of the above.",
+        "The router is using HTTP/1.1 instead of HTTP/2, causing head-of-line blocking.",
+        "Synchronous JavaScript blocks the single-threaded Node.js Event Loop, preventing the server from accepting or processing any other incoming HTTP connections or asynchronous callbacks until the math finishes.",
+        "The database connection pool is exhausted by the heavy calculations.",
+        "The Node.js garbage collector pauses the application to clean up the mathematical variables."
+      ],
+      "timeMs": 1365
+    },
+    "10": {
+      "question": "API Design: REST Security (Mass Assignment). You have an endpoint PATCH /users/:id that updates a user's profile. The code is written as: User.findByIdAndUpdate(req.params.id, req.body). An attacker realizes they can pass {\"isAdmin\": true} in the JSON payload and successfully gain admin privileges. What is this vulnerability, and how is it fixed?",
+      "correct": 1,
+      "options": [
+        "Broken Authentication; fix it by rotating the JWT secret key.",
+        "Mass Assignment (Over-posting); fix it by explicitly destructuring and permitting only safe fields (e.g., const { name, email } = req.body) before updating the database.",
+        "SQL Injection; fix it by escaping the input payload.",
+        "Cross-Site Scripting (XSS); fix it by sanitizing the HTML tags in the payload.",
+        "None of the above."
+      ],
+      "timeMs": 719
+    },
+    "11": {
+      "question": "Integration: Solving N+1 in GraphQL/APIs. Your GraphQL integration queries a list of 50 users. For each user, a resolver fires a database query to fetch their associated Company data. This results in 1 query for the users, and 50 separate queries for the companies (The N+1 Problem). What is the standard coding solution to fix this integration?",
+      "correct": 4,
+      "options": [
+        "Change the database from PostgreSQL to MongoDB, which automatically prevents N+1 queries.",
+        "Add a composite index to the Company table.",
+        "None of the above.",
+        "Force the client to make separate REST API calls instead of using GraphQL.",
+        "Use Facebook's DataLoader utility to batch and cache the 50 individual company requests into a single SELECT * FROM Companies WHERE id IN (...) query."
+      ],
+      "timeMs": 5850
+    },
+    "12": {
+      "question": "Debugging: WebSocket Connection Drops. Your clients establish WebSocket connections to your API for real-time chat. Exactly 60 seconds after a user goes idle (stops typing), their WebSocket connection drops automatically, even though no errors are thrown in the browser or Node.js. What is the most likely cause?",
+      "correct": 3,
+      "options": [
+        "The Node.js ws library has a hardcoded maximum connection time of 1 minute.",
+        "The React component unmounted and re-mounted in the background.",
+        "None of the above.",
+        "An intermediate reverse proxy (like Nginx or an AWS Load Balancer) closed the connection due to an idle timeout because no Ping/Pong heartbeat frames were sent to keep the TCP connection alive.",
+        "The client's browser Garbage Collector deleted the WebSocket variable."
+      ],
+      "timeMs": 1555
+    },
+    "13": {
+      "question": "API Design: Idempotency in POST Requests. An API endpoint POST /refunds processes financial refunds. If a client experiences a network timeout, they might retry the POST request, potentially refunding the customer twice. How should the API be designed to handle this safely?",
+      "correct": 4,
+      "options": [
+        "Rely on the database's Primary Key auto-increment to naturally reject duplicate requests.",
+        "Configure the API to immediately disable the user's account if a duplicate payload is detected.",
+        "None of the above.",
+        "Change the HTTP method to GET, as GET requests are naturally idempotent.",
+        "Require the client to send a unique Idempotency-Key in the HTTP header. The API checks if a transaction with this key was already successfully processed; if so, it returns the cached successful response without re-processing."
+      ],
+      "timeMs": 2008
+    },
+    "14": {
+      "question": "Debugging: The \"Ghost\" Unreleased Database Connection. A Node.js worker pulls jobs from a queue and updates a PostgreSQL database using a connection pool. After processing exactly 10 jobs, the worker freezes and stops processing completely. No CPU spikes occur. What coding error causes this?",
+      "correct": 0,
+      "options": [
+        "The worker forgot to run pool.release() or client.end() inside a finally block after executing the query, resulting in connection pool exhaustion.",
+        "None of the above.",
+        "The JSON payloads in the queue exceeded the 16MB limit.",
+        "The PostgreSQL server ran out of hard drive space.",
+        "The worker was compiled with an older version of the V8 JavaScript engine."
+      ],
+      "timeMs": 596
+    },
+    "15": {
+      "question": "Integration: Handling Partial Failures in Batch APIs. You design a bulk API endpoint: POST /users/batch that accepts an array of 1,000 user objects to insert into the database. 999 users are valid, but 1 has an invalid email format. What is the most appropriate RESTful response and behavior for this integration?",
+      "correct": 3,
+      "options": [
+        "Insert the 999 valid users, ignore the 1 invalid user silently, and return a 200 OK.",
+        "Rollback the entire transaction and return a 400 Bad Request so the client knows exactly what failed.",
+        "None of the above.",
+        "Insert the 999 valid users and return a 207 Multi-Status response containing an array detailing the 201 Created successes and the specific 400 Bad Request error for the failed item.",
+        "Halt the process, return a 500 Internal Server Error, and trigger a PagerDuty alert to the backend team."
+      ],
+      "timeMs": 752
+    }
+  }
+}
