@@ -9,6 +9,9 @@ import { getAttempts } from "@/lib/exam-attempts";
 
 interface Candidate { name?: string; email: string; loginAt: number }
 
+// exams that require voice screening before entry
+const SCREENED_EXAMS = new Set(["dsa", "coding", "system", "technical"]);
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const [candidate, setCandidate] = useState<Candidate | null>(null);
@@ -61,15 +64,32 @@ export default function Dashboard() {
 
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {EXAMS.map((exam) => {
-            const done = attemptedIds.has(exam.id);
-            const target = exam.id === "coding" ? `/coding/${exam.id}` : `/exam/${exam.id}`;
+            const done   = attemptedIds.has(exam.id);
+            const screened = SCREENED_EXAMS.has(exam.id);
+            // screened exams go to /screen/:id first, others go direct
+            const target = screened
+              ? `/screen/${exam.id}`
+              : exam.id === "coding" ? `/coding/${exam.id}` : `/exam/${exam.id}`;
+
             return (
-              <Card key={exam.id} className={`relative overflow-hidden transition-smooth ${done ? "opacity-70" : "hover:shadow-brand hover:-translate-y-1"}`}>
+              <Card key={exam.id} className={`relative overflow-hidden transition-smooth ${
+                done ? "opacity-70" : "hover:shadow-brand hover:-translate-y-1"
+              }`}>
                 <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${exam.accent}`} />
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="text-3xl">{exam.icon}</div>
-                    {done ? <Badge variant="secondary">Attempted</Badge> : <Badge className="bg-brand-gradient text-white border-0">Available</Badge>}
+                    <div className="flex flex-col items-end gap-1">
+                      {done
+                        ? <Badge variant="secondary">Attempted</Badge>
+                        : <Badge className="bg-brand-gradient text-white border-0">Available</Badge>
+                      }
+                      {screened && !done && (
+                        <Badge variant="outline" className="text-[10px] gap-1">
+                          🎤 Voice Screened
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                   <CardTitle className="mt-3 text-lg">{exam.title}</CardTitle>
                   <CardDescription>{exam.description}</CardDescription>
@@ -83,7 +103,7 @@ export default function Dashboard() {
                   ) : (
                     <Link to={target}>
                       <Button className="w-full bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95">
-                        Start →
+                        {screened ? "Start Screening 🎤" : "Start →"}
                       </Button>
                     </Link>
                   )}
