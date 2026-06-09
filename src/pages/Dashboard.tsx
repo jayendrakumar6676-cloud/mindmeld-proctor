@@ -9,9 +9,6 @@ import { getAttempts } from "@/lib/exam-attempts";
 
 interface Candidate { name?: string; email: string; loginAt: number }
 
-// exams that require voice screening before entry
-const SCREENED_EXAMS = new Set(["dsa", "coding", "system", "technical"]);
-
 export default function Dashboard() {
   const navigate = useNavigate();
   const [candidate, setCandidate] = useState<Candidate | null>(null);
@@ -55,7 +52,7 @@ export default function Dashboard() {
               Choose your <span className="text-brand-gradient">XPay Assessment</span>
             </h1>
             <p className="mt-3 max-w-xl text-white/80">
-              Each test can be attempted <strong>only once</strong>. Camera & microphone
+              Each test can be attempted <strong>only once</strong>. Camera &amp; microphone
               access is required. Tab-switching, copy/paste and right-click are monitored.
             </p>
           </div>
@@ -65,11 +62,8 @@ export default function Dashboard() {
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {EXAMS.map((exam) => {
             const done   = attemptedIds.has(exam.id);
-            const screened = SCREENED_EXAMS.has(exam.id);
-            // screened exams go to /screen/:id first, others go direct
-            const target = screened
-              ? `/screen/${exam.id}`
-              : exam.id === "coding" ? `/coding/${exam.id}` : `/exam/${exam.id}`;
+            // direct routing — no voice screening gate
+            const target = exam.id === "coding" ? `/coding/${exam.id}` : `/exam/${exam.id}`;
 
             return (
               <Card key={exam.id} className={`relative overflow-hidden transition-smooth ${
@@ -84,11 +78,6 @@ export default function Dashboard() {
                         ? <Badge variant="secondary">Attempted</Badge>
                         : <Badge className="bg-brand-gradient text-white border-0">Available</Badge>
                       }
-                      {screened && !done && (
-                        <Badge variant="outline" className="text-[10px] gap-1">
-                          🎤 Voice Screened
-                        </Badge>
-                      )}
                     </div>
                   </div>
                   <CardTitle className="mt-3 text-lg">{exam.title}</CardTitle>
@@ -103,7 +92,7 @@ export default function Dashboard() {
                   ) : (
                     <Link to={target}>
                       <Button className="w-full bg-brand-gradient border-0 text-white font-semibold transition-smooth hover:opacity-95">
-                        {screened ? "Start Screening 🎤" : "Start →"}
+                        Start →
                       </Button>
                     </Link>
                   )}
